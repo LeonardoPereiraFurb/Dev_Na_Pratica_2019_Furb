@@ -1,0 +1,1960 @@
+{
+    "appName": "furb-basico",
+    "domain": "furb",
+    "name": "basico",
+    "version": "${version}",
+    "commands" : {
+        "deleteAtor": {
+            "endpointType" : "command",
+            "kind": "delete",
+            "documentation": "The 'delete' request primitive for the Ator entity.",
+            "input" : {
+                "id" : {
+                    "type": "string",
+                    "format": "uuid",
+                    "optional": false,
+                    "multivalued": false,
+                	"readOnly": true
+                }
+            },
+            "extensionPoint" : false,
+            "visibility" : "PUBLIC"
+        },
+        "createMergeFilme": {
+            "endpointType" : "command",
+            "kind": "createMerge",
+            "documentation": "The 'createMerge' request primitive for the Filme entity.",
+            "input" : "filme",
+            "output" : "filme",
+            "extensionPoint" : false,
+            "visibility" : "PUBLIC"
+        },
+        "createMergeGenero": {
+            "endpointType" : "command",
+            "kind": "createMerge",
+            "documentation": "The 'createMerge' request primitive for the Genero entity.",
+            "input" : "genero",
+            "output" : "genero",
+            "extensionPoint" : false,
+            "visibility" : "PUBLIC"
+        },
+        "exportAtor": {
+            "endpointType" : "command",
+            "kind": "query",
+            "idempotent": true,
+            "input" : {
+                "config" : {
+                    "type": "exportConfig",
+                    "optional": false,
+                    "multivalued": false,
+                    "readOnly": false
+                }
+            },
+            "output" : {
+                "exportJobId" : {
+                    "type": "string",
+                    "optional": false,
+                    "multivalued": false,
+                    "readOnly": false
+                }
+            },
+            "extensionPoint" : false,
+            "visibility" : "PUBLIC"
+        },
+        "listFilme": {
+            "endpointType" : "command",
+            "kind": "list",
+            "documentation": "The 'list' request primitive for the Filme entity.",
+            "input" : {
+                "offset" : {
+                    "type": "integer",
+                    "optional": false,
+                    "multivalued": false,
+                    "readOnly": false
+                },
+                "size" : {
+                    "type": "integer",
+                    "optional": false,
+                    "multivalued": false,
+                    "readOnly": false
+                },
+                "orderBy" : {
+                    "type": "string",
+                    "optional": false,
+                    "multivalued": false,
+                    "readOnly": false
+                },
+                "filter" : {
+                    "type": "string",
+                    "optional": false,
+                    "multivalued": false,
+                    "readOnly": false
+                },
+                "displayFields" : {
+                    "type": "string",
+                    "optional": false,
+                    "multivalued": true,
+                    "readOnly": false
+                }
+            },
+            "output" : {
+                "contents" : {
+                    "type": "filme",
+                    "optional": false,
+                    "multivalued": true,
+                    "readOnly": false
+                }
+            },
+            "extensionPoint" : false,
+            "visibility" : "PUBLIC"
+        },
+        "listDiretor": {
+            "endpointType" : "command",
+            "kind": "list",
+            "documentation": "The 'list' request primitive for the Diretor entity.",
+            "input" : {
+                "offset" : {
+                    "type": "integer",
+                    "optional": false,
+                    "multivalued": false,
+                    "readOnly": false
+                },
+                "size" : {
+                    "type": "integer",
+                    "optional": false,
+                    "multivalued": false,
+                    "readOnly": false
+                },
+                "orderBy" : {
+                    "type": "string",
+                    "optional": false,
+                    "multivalued": false,
+                    "readOnly": false
+                },
+                "filter" : {
+                    "type": "string",
+                    "optional": false,
+                    "multivalued": false,
+                    "readOnly": false
+                },
+                "displayFields" : {
+                    "type": "string",
+                    "optional": false,
+                    "multivalued": true,
+                    "readOnly": false
+                }
+            },
+            "output" : {
+                "contents" : {
+                    "type": "diretor",
+                    "optional": false,
+                    "multivalued": true,
+                    "readOnly": false
+                }
+            },
+            "extensionPoint" : false,
+            "visibility" : "PUBLIC"
+        },
+        "deleteFilme": {
+            "endpointType" : "command",
+            "kind": "delete",
+            "documentation": "The 'delete' request primitive for the Filme entity.",
+            "input" : {
+                "id" : {
+                    "type": "string",
+                    "format": "uuid",
+                    "optional": false,
+                    "multivalued": false,
+                	"readOnly": true
+                }
+            },
+            "extensionPoint" : false,
+            "visibility" : "PUBLIC"
+        },
+        "createMergeAtor": {
+            "endpointType" : "command",
+            "kind": "createMerge",
+            "documentation": "The 'createMerge' request primitive for the Ator entity.",
+            "input" : "ator",
+            "output" : "ator",
+            "extensionPoint" : false,
+            "visibility" : "PUBLIC"
+        },
+        "gravarFoto": {
+            "endpointType" : "command",
+            "kind": "action",
+            "documentation": "Grava a foto que foi upada",
+            "input" : {
+                "id" : {
+                    "type": "string",
+                    "optional": false,
+                    "multivalued": false,
+                    "readOnly": false
+                },
+                "version" : {
+                    "type": "string",
+                    "optional": false,
+                    "multivalued": false,
+                    "readOnly": false
+                }
+            },
+            "output" : {
+                "result" : {
+                    "type": "fotoOperationResult",
+                    "optional": false,
+                    "multivalued": false,
+                    "readOnly": false
+                }
+            },
+            "extensionPoint" : false,
+            "visibility" : "PRIVATE"
+        },
+        "createBulkDiretor": {
+            "endpointType" : "command",
+            "kind": "createBulk",
+            "documentation": "The 'createBulk' request primitive for the Diretor entity.",
+            "input" : {
+                "entities" : {
+                    "type": "diretor",
+                    "optional": false,
+                    "multivalued": true,
+                    "readOnly": false
+                }
+            },
+            "output" : {
+            },
+            "extensionPoint" : false,
+            "visibility" : "PUBLIC"
+        },
+        "obterUrlDownloadFoto": {
+            "endpointType" : "command",
+            "kind": "action",
+            "documentation": "Obt\u00E9m a URL para download da foto",
+            "input" : {
+                "id" : {
+                    "type": "string",
+                    "optional": false,
+                    "multivalued": false,
+                    "readOnly": false
+                }
+            },
+            "output" : {
+                "url" : {
+                    "type": "string",
+                    "optional": false,
+                    "multivalued": false,
+                    "readOnly": false
+                }
+            },
+            "extensionPoint" : false,
+            "visibility" : "PRIVATE"
+        },
+        "createMergeDiretor": {
+            "endpointType" : "command",
+            "kind": "createMerge",
+            "documentation": "The 'createMerge' request primitive for the Diretor entity.",
+            "input" : "diretor",
+            "output" : "diretor",
+            "extensionPoint" : false,
+            "visibility" : "PUBLIC"
+        },
+        "createGenero": {
+            "endpointType" : "command",
+            "kind": "create",
+            "documentation": "The 'create' request primitive for the Genero entity.",
+            "input" : "genero",
+            "output" : "genero",
+            "extensionPoint" : false,
+            "visibility" : "PUBLIC"
+        },
+        "importFilme": {
+            "endpointType" : "command",
+            "kind": "action",
+            "input" : {
+                "config" : {
+                    "type": "importConfig",
+                    "optional": false,
+                    "multivalued": false,
+                    "readOnly": false
+                }
+            },
+            "output" : {
+                "importJobId" : {
+                    "type": "string",
+                    "optional": false,
+                    "multivalued": false,
+                    "readOnly": false
+                }
+            },
+            "extensionPoint" : false,
+            "visibility" : "PUBLIC"
+        },
+        "createBulkFilme": {
+            "endpointType" : "command",
+            "kind": "createBulk",
+            "documentation": "The 'createBulk' request primitive for the Filme entity.",
+            "input" : {
+                "entities" : {
+                    "type": "filme",
+                    "optional": false,
+                    "multivalued": true,
+                    "readOnly": false
+                }
+            },
+            "output" : {
+            },
+            "extensionPoint" : false,
+            "visibility" : "PUBLIC"
+        },
+        "retrieveGenero": {
+            "endpointType" : "command",
+            "kind": "retrieve",
+            "documentation": "The 'retrieve' request primitive for the Genero entity.",
+            "input" : {
+                "id" : {
+                    "type": "string",
+                    "format": "uuid",
+                    "optional": false,
+                    "multivalued": false,
+                	"readOnly": true
+                }
+            },
+            "output" : "genero",
+            "extensionPoint" : false,
+            "visibility" : "PUBLIC"
+        },
+        "importGenero": {
+            "endpointType" : "command",
+            "kind": "action",
+            "input" : {
+                "config" : {
+                    "type": "importConfig",
+                    "optional": false,
+                    "multivalued": false,
+                    "readOnly": false
+                }
+            },
+            "output" : {
+                "importJobId" : {
+                    "type": "string",
+                    "optional": false,
+                    "multivalued": false,
+                    "readOnly": false
+                }
+            },
+            "extensionPoint" : false,
+            "visibility" : "PUBLIC"
+        },
+        "createBulkAtor": {
+            "endpointType" : "command",
+            "kind": "createBulk",
+            "documentation": "The 'createBulk' request primitive for the Ator entity.",
+            "input" : {
+                "entities" : {
+                    "type": "ator",
+                    "optional": false,
+                    "multivalued": true,
+                    "readOnly": false
+                }
+            },
+            "output" : {
+            },
+            "extensionPoint" : false,
+            "visibility" : "PUBLIC"
+        },
+        "updateMergeGenero": {
+            "endpointType" : "command",
+            "kind": "updateMerge",
+            "documentation": "The 'updateMerge' request primitive for the Genero entity.",
+            "input" : "genero",
+            "output" : "genero",
+            "extensionPoint" : false,
+            "visibility" : "PUBLIC"
+        },
+        "updateGenero": {
+            "endpointType" : "command",
+            "kind": "update",
+            "documentation": "The 'update' request primitive for the Genero entity.",
+            "input" : "genero",
+            "output" : "genero",
+            "extensionPoint" : false,
+            "visibility" : "PUBLIC"
+        },
+        "retrieveAtor": {
+            "endpointType" : "command",
+            "kind": "retrieve",
+            "documentation": "The 'retrieve' request primitive for the Ator entity.",
+            "input" : {
+                "id" : {
+                    "type": "string",
+                    "format": "uuid",
+                    "optional": false,
+                    "multivalued": false,
+                	"readOnly": true
+                }
+            },
+            "output" : "ator",
+            "extensionPoint" : false,
+            "visibility" : "PUBLIC"
+        },
+        "retrieveDiretor": {
+            "endpointType" : "command",
+            "kind": "retrieve",
+            "documentation": "The 'retrieve' request primitive for the Diretor entity.",
+            "input" : {
+                "id" : {
+                    "type": "string",
+                    "format": "uuid",
+                    "optional": false,
+                    "multivalued": false,
+                	"readOnly": true
+                }
+            },
+            "output" : "diretor",
+            "extensionPoint" : false,
+            "visibility" : "PUBLIC"
+        },
+        "listGenero": {
+            "endpointType" : "command",
+            "kind": "list",
+            "documentation": "The 'list' request primitive for the Genero entity.",
+            "input" : {
+                "offset" : {
+                    "type": "integer",
+                    "optional": false,
+                    "multivalued": false,
+                    "readOnly": false
+                },
+                "size" : {
+                    "type": "integer",
+                    "optional": false,
+                    "multivalued": false,
+                    "readOnly": false
+                },
+                "orderBy" : {
+                    "type": "string",
+                    "optional": false,
+                    "multivalued": false,
+                    "readOnly": false
+                },
+                "filter" : {
+                    "type": "string",
+                    "optional": false,
+                    "multivalued": false,
+                    "readOnly": false
+                },
+                "displayFields" : {
+                    "type": "string",
+                    "optional": false,
+                    "multivalued": true,
+                    "readOnly": false
+                }
+            },
+            "output" : {
+                "contents" : {
+                    "type": "genero",
+                    "optional": false,
+                    "multivalued": true,
+                    "readOnly": false
+                }
+            },
+            "extensionPoint" : false,
+            "visibility" : "PUBLIC"
+        },
+        "exportDiretor": {
+            "endpointType" : "command",
+            "kind": "query",
+            "idempotent": true,
+            "input" : {
+                "config" : {
+                    "type": "exportConfig",
+                    "optional": false,
+                    "multivalued": false,
+                    "readOnly": false
+                }
+            },
+            "output" : {
+                "exportJobId" : {
+                    "type": "string",
+                    "optional": false,
+                    "multivalued": false,
+                    "readOnly": false
+                }
+            },
+            "extensionPoint" : false,
+            "visibility" : "PUBLIC"
+        },
+        "getMetadata": {
+            "endpointType" : "command",
+            "kind": "query",
+            "documentation": "Default 'getMetadata' query. Every service must handle this command and return metadata in the format requested.",
+            "idempotent": true,
+            "input" : {
+                "metadataFormat" : {
+                    "type": "string",
+                    "optional": true,
+                    "multivalued": false,
+                    "readOnly": false
+                }
+            },
+            "output" : {
+                "metadata" : {
+                    "type": "string",
+                    "optional": false,
+                    "multivalued": false,
+                    "readOnly": false
+                }
+            },
+            "extensionPoint" : false,
+            "visibility" : "PRIVATE"
+        },
+        "updateMergeDiretor": {
+            "endpointType" : "command",
+            "kind": "updateMerge",
+            "documentation": "The 'updateMerge' request primitive for the Diretor entity.",
+            "input" : "diretor",
+            "output" : "diretor",
+            "extensionPoint" : false,
+            "visibility" : "PUBLIC"
+        },
+        "createAtor": {
+            "endpointType" : "command",
+            "kind": "create",
+            "documentation": "The 'create' request primitive for the Ator entity.",
+            "input" : "ator",
+            "output" : "ator",
+            "extensionPoint" : false,
+            "visibility" : "PUBLIC"
+        },
+        "getDependencies": {
+            "endpointType" : "command",
+            "kind": "query",
+            "documentation": "Returns a list with all dependencies from this service, along with their respective versions",
+            "idempotent": true,
+            "output" : {
+                "dependencies" : {
+                    "type": "dependency",
+                    "optional": false,
+                    "multivalued": true,
+                    "readOnly": false
+                }
+            },
+            "extensionPoint" : false,
+            "visibility" : "PUBLIC"
+        },
+        "updateMergeAtor": {
+            "endpointType" : "command",
+            "kind": "updateMerge",
+            "documentation": "The 'updateMerge' request primitive for the Ator entity.",
+            "input" : "ator",
+            "output" : "ator",
+            "extensionPoint" : false,
+            "visibility" : "PUBLIC"
+        },
+        "deleteDiretor": {
+            "endpointType" : "command",
+            "kind": "delete",
+            "documentation": "The 'delete' request primitive for the Diretor entity.",
+            "input" : {
+                "id" : {
+                    "type": "string",
+                    "format": "uuid",
+                    "optional": false,
+                    "multivalued": false,
+                	"readOnly": true
+                }
+            },
+            "extensionPoint" : false,
+            "visibility" : "PUBLIC"
+        },
+        "importDiretor": {
+            "endpointType" : "command",
+            "kind": "action",
+            "input" : {
+                "config" : {
+                    "type": "importConfig",
+                    "optional": false,
+                    "multivalued": false,
+                    "readOnly": false
+                }
+            },
+            "output" : {
+                "importJobId" : {
+                    "type": "string",
+                    "optional": false,
+                    "multivalued": false,
+                    "readOnly": false
+                }
+            },
+            "extensionPoint" : false,
+            "visibility" : "PUBLIC"
+        },
+        "createFilme": {
+            "endpointType" : "command",
+            "kind": "create",
+            "documentation": "The 'create' request primitive for the Filme entity.",
+            "input" : "filme",
+            "output" : "filme",
+            "extensionPoint" : false,
+            "visibility" : "PUBLIC"
+        },
+        "updateAtor": {
+            "endpointType" : "command",
+            "kind": "update",
+            "documentation": "The 'update' request primitive for the Ator entity.",
+            "input" : "ator",
+            "output" : "ator",
+            "extensionPoint" : false,
+            "visibility" : "PUBLIC"
+        },
+        "retornaEstoque": {
+            "endpointType" : "command",
+            "kind": "query",
+            "documentation": "Obt\u00E9m a quantidade de itens no estoque de acordo com um pedido",
+            "idempotent": true,
+            "input" : {
+                "idPedido" : {
+                    "type": "string",
+                    "optional": false,
+                    "multivalued": false,
+                    "readOnly": false
+                }
+            },
+            "output" : {
+                "qtd" : {
+                    "type": "integer",
+                    "optional": false,
+                    "multivalued": false,
+                    "readOnly": false
+                },
+                "message" : {
+                    "type": "string",
+                    "optional": true,
+                    "multivalued": false,
+                    "readOnly": false
+                }
+            },
+            "extensionPoint" : false,
+            "visibility" : "PRIVATE"
+        },
+        "updateDiretor": {
+            "endpointType" : "command",
+            "kind": "update",
+            "documentation": "The 'update' request primitive for the Diretor entity.",
+            "input" : "diretor",
+            "output" : "diretor",
+            "extensionPoint" : false,
+            "visibility" : "PUBLIC"
+        },
+        "exportFilme": {
+            "endpointType" : "command",
+            "kind": "query",
+            "idempotent": true,
+            "input" : {
+                "config" : {
+                    "type": "exportConfig",
+                    "optional": false,
+                    "multivalued": false,
+                    "readOnly": false
+                }
+            },
+            "output" : {
+                "exportJobId" : {
+                    "type": "string",
+                    "optional": false,
+                    "multivalued": false,
+                    "readOnly": false
+                }
+            },
+            "extensionPoint" : false,
+            "visibility" : "PUBLIC"
+        },
+        "updateFilme": {
+            "endpointType" : "command",
+            "kind": "update",
+            "documentation": "The 'update' request primitive for the Filme entity.",
+            "input" : "filme",
+            "output" : "filme",
+            "extensionPoint" : false,
+            "visibility" : "PUBLIC"
+        },
+        "retrieveFilme": {
+            "endpointType" : "command",
+            "kind": "retrieve",
+            "documentation": "The 'retrieve' request primitive for the Filme entity.",
+            "input" : {
+                "id" : {
+                    "type": "string",
+                    "format": "uuid",
+                    "optional": false,
+                    "multivalued": false,
+                	"readOnly": true
+                }
+            },
+            "output" : "filme",
+            "extensionPoint" : false,
+            "visibility" : "PUBLIC"
+        },
+        "createBulkGenero": {
+            "endpointType" : "command",
+            "kind": "createBulk",
+            "documentation": "The 'createBulk' request primitive for the Genero entity.",
+            "input" : {
+                "entities" : {
+                    "type": "genero",
+                    "optional": false,
+                    "multivalued": true,
+                    "readOnly": false
+                }
+            },
+            "output" : {
+            },
+            "extensionPoint" : false,
+            "visibility" : "PUBLIC"
+        },
+        "listAtor": {
+            "endpointType" : "command",
+            "kind": "list",
+            "documentation": "The 'list' request primitive for the Ator entity.",
+            "input" : {
+                "offset" : {
+                    "type": "integer",
+                    "optional": false,
+                    "multivalued": false,
+                    "readOnly": false
+                },
+                "size" : {
+                    "type": "integer",
+                    "optional": false,
+                    "multivalued": false,
+                    "readOnly": false
+                },
+                "orderBy" : {
+                    "type": "string",
+                    "optional": false,
+                    "multivalued": false,
+                    "readOnly": false
+                },
+                "filter" : {
+                    "type": "string",
+                    "optional": false,
+                    "multivalued": false,
+                    "readOnly": false
+                },
+                "displayFields" : {
+                    "type": "string",
+                    "optional": false,
+                    "multivalued": true,
+                    "readOnly": false
+                }
+            },
+            "output" : {
+                "contents" : {
+                    "type": "ator",
+                    "optional": false,
+                    "multivalued": true,
+                    "readOnly": false
+                }
+            },
+            "extensionPoint" : false,
+            "visibility" : "PUBLIC"
+        },
+        "createDiretor": {
+            "endpointType" : "command",
+            "kind": "create",
+            "documentation": "The 'create' request primitive for the Diretor entity.",
+            "input" : "diretor",
+            "output" : "diretor",
+            "extensionPoint" : false,
+            "visibility" : "PUBLIC"
+        },
+        "updateMergeFilme": {
+            "endpointType" : "command",
+            "kind": "updateMerge",
+            "documentation": "The 'updateMerge' request primitive for the Filme entity.",
+            "input" : "filme",
+            "output" : "filme",
+            "extensionPoint" : false,
+            "visibility" : "PUBLIC"
+        },
+        "exportGenero": {
+            "endpointType" : "command",
+            "kind": "query",
+            "idempotent": true,
+            "input" : {
+                "config" : {
+                    "type": "exportConfig",
+                    "optional": false,
+                    "multivalued": false,
+                    "readOnly": false
+                }
+            },
+            "output" : {
+                "exportJobId" : {
+                    "type": "string",
+                    "optional": false,
+                    "multivalued": false,
+                    "readOnly": false
+                }
+            },
+            "extensionPoint" : false,
+            "visibility" : "PUBLIC"
+        },
+        "obterUrlUploadFoto": {
+            "endpointType" : "command",
+            "kind": "action",
+            "documentation": "Obt\u00E9m a URL para upload da foto",
+            "input" : {
+                "id" : {
+                    "type": "string",
+                    "optional": true,
+                    "multivalued": false,
+                    "readOnly": false
+                }
+            },
+            "output" : {
+                "id" : {
+                    "type": "string",
+                    "optional": false,
+                    "multivalued": false,
+                    "readOnly": false
+                },
+                "version" : {
+                    "type": "string",
+                    "optional": false,
+                    "multivalued": false,
+                    "readOnly": false
+                },
+                "url" : {
+                    "type": "string",
+                    "optional": false,
+                    "multivalued": false,
+                    "readOnly": false
+                }
+            },
+            "extensionPoint" : false,
+            "visibility" : "PRIVATE"
+        },
+        "helloWorld": {
+            "endpointType" : "command",
+            "kind": "query",
+            "idempotent": true,
+            "input" : {
+                "who" : {
+                    "type": "string",
+                    "optional": false,
+                    "multivalued": false,
+                    "readOnly": false
+                }
+            },
+            "output" : {
+                "helloWorldMessage" : {
+                    "type": "string",
+                    "optional": false,
+                    "multivalued": false,
+                    "readOnly": false
+                }
+            },
+            "extensionPoint" : false,
+            "visibility" : "PRIVATE"
+        },
+        "deleteGenero": {
+            "endpointType" : "command",
+            "kind": "delete",
+            "documentation": "The 'delete' request primitive for the Genero entity.",
+            "input" : {
+                "id" : {
+                    "type": "string",
+                    "format": "uuid",
+                    "optional": false,
+                    "multivalued": false,
+                	"readOnly": true
+                }
+            },
+            "extensionPoint" : false,
+            "visibility" : "PUBLIC"
+        },
+        "importAtor": {
+            "endpointType" : "command",
+            "kind": "action",
+            "input" : {
+                "config" : {
+                    "type": "importConfig",
+                    "optional": false,
+                    "multivalued": false,
+                    "readOnly": false
+                }
+            },
+            "output" : {
+                "importJobId" : {
+                    "type": "string",
+                    "optional": false,
+                    "multivalued": false,
+                    "readOnly": false
+                }
+            },
+            "extensionPoint" : false,
+            "visibility" : "PUBLIC"
+        }
+    },
+    "signals" : {
+    },
+    "events" : {
+        "serviceStarted": {
+            "endpointType" : "event",
+            "documentation" : "Default 'serviceStarted' event.",
+            "payload" : {
+                "domain" : {
+                    "type": "string",
+                    "optional": false,
+                    "multivalued": false,
+                    "readOnly": false
+                },
+                "service" : {
+                    "type": "string",
+                    "optional": false,
+                    "multivalued": false,
+                    "readOnly": false
+                }
+            },
+            "extensionPoint" : false,
+            "visibility" : "PRIVATE"
+        },
+        "notifyUserEvent": {
+            "endpointType" : "event",
+            "documentation" : "Default 'notifyUser' event.",
+            "payload" : "notifyUserEventPayload",
+            "extensionPoint" : false,
+            "visibility" : "PRIVATE"
+        },
+        "importGeneroEvent": {
+            "endpointType" : "event",
+            "payload" : {
+                "eventpl" : {
+                    "type": "importEventStatus",
+                    "optional": false,
+                    "multivalued": false,
+                    "readOnly": false
+                }
+            },
+            "extensionPoint" : false,
+            "visibility" : "PUBLIC"
+        },
+        "exportGeneroEvent": {
+            "endpointType" : "event",
+            "payload" : {
+                "eventpl" : {
+                    "type": "exportEventStatus",
+                    "optional": false,
+                    "multivalued": false,
+                    "readOnly": false
+                }
+            },
+            "extensionPoint" : false,
+            "visibility" : "PUBLIC"
+        },
+        "importDiretorEvent": {
+            "endpointType" : "event",
+            "payload" : {
+                "eventpl" : {
+                    "type": "importEventStatus",
+                    "optional": false,
+                    "multivalued": false,
+                    "readOnly": false
+                }
+            },
+            "extensionPoint" : false,
+            "visibility" : "PUBLIC"
+        },
+        "exportDiretorEvent": {
+            "endpointType" : "event",
+            "payload" : {
+                "eventpl" : {
+                    "type": "exportEventStatus",
+                    "optional": false,
+                    "multivalued": false,
+                    "readOnly": false
+                }
+            },
+            "extensionPoint" : false,
+            "visibility" : "PUBLIC"
+        },
+        "importFilmeEvent": {
+            "endpointType" : "event",
+            "payload" : {
+                "eventpl" : {
+                    "type": "importEventStatus",
+                    "optional": false,
+                    "multivalued": false,
+                    "readOnly": false
+                }
+            },
+            "extensionPoint" : false,
+            "visibility" : "PUBLIC"
+        },
+        "exportFilmeEvent": {
+            "endpointType" : "event",
+            "payload" : {
+                "eventpl" : {
+                    "type": "exportEventStatus",
+                    "optional": false,
+                    "multivalued": false,
+                    "readOnly": false
+                }
+            },
+            "extensionPoint" : false,
+            "visibility" : "PUBLIC"
+        },
+        "importAtorEvent": {
+            "endpointType" : "event",
+            "payload" : {
+                "eventpl" : {
+                    "type": "importEventStatus",
+                    "optional": false,
+                    "multivalued": false,
+                    "readOnly": false
+                }
+            },
+            "extensionPoint" : false,
+            "visibility" : "PUBLIC"
+        },
+        "exportAtorEvent": {
+            "endpointType" : "event",
+            "payload" : {
+                "eventpl" : {
+                    "type": "exportEventStatus",
+                    "optional": false,
+                    "multivalued": false,
+                    "readOnly": false
+                }
+            },
+            "extensionPoint" : false,
+            "visibility" : "PUBLIC"
+        }
+    },
+    "records": {
+        "genero" : {
+            "id" : {
+                "type": "string",
+                "format": "uuid",
+                "optional": true,
+                "multivalued": false,
+            	"readOnly": true
+            },
+            "nome" : {
+                "type": "string",
+                "optional": false,
+                "multivalued": false,
+                "readOnly": false
+            },
+            "descricao" : {
+                "type": "string",
+                "optional": false,
+                "multivalued": false,
+                "readOnly": false
+            },
+            "filme" : {
+                "type": "filme",
+                "optional": true,
+                "multivalued": false,
+                "readOnly": false
+            }
+        },
+        "diretor" : {
+            "id" : {
+                "type": "string",
+                "format": "uuid",
+                "optional": true,
+                "multivalued": false,
+            	"readOnly": true
+            },
+            "nome" : {
+                "type": "string",
+                "optional": false,
+                "multivalued": false,
+                "readOnly": false
+            },
+            "idade" : {
+                "type": "integer",
+                "optional": false,
+                "multivalued": false,
+                "readOnly": false
+            },
+            "descricao" : {
+                "type": "string",
+                "optional": false,
+                "multivalued": false,
+                "readOnly": false
+            },
+            "filmes" : {
+                "type": "filme",
+                "optional": true,
+                "multivalued": true,
+                "readOnly": false
+            }
+        },
+        "filme" : {
+            "id" : {
+                "type": "string",
+                "format": "uuid",
+                "optional": true,
+                "multivalued": false,
+            	"readOnly": true
+            },
+            "descricao" : {
+                "type": "string",
+                "optional": false,
+                "multivalued": false,
+                "readOnly": false
+            },
+            "atores" : {
+                "type": "ator",
+                "optional": true,
+                "multivalued": true,
+                "readOnly": false
+            },
+            "diretor" : {
+                "type": "diretor",
+                "optional": true,
+                "multivalued": false,
+                "readOnly": false
+            },
+            "generos" : {
+                "type": "genero",
+                "optional": true,
+                "multivalued": true,
+                "readOnly": false
+            }
+        },
+        "ator" : {
+            "id" : {
+                "type": "string",
+                "format": "uuid",
+                "optional": true,
+                "multivalued": false,
+            	"readOnly": true
+            },
+            "nome" : {
+                "type": "string",
+                "optional": false,
+                "multivalued": false,
+                "readOnly": false
+            },
+            "descricao" : {
+                "type": "string",
+                "optional": false,
+                "multivalued": false,
+                "readOnly": false
+            },
+            "filme" : {
+                "type": "filme",
+                "optional": true,
+                "multivalued": false,
+                "readOnly": false
+            }
+        },
+        "notifyUserEventPayload" : {
+            "notificationClass" : {
+                "type": "string",
+                "optional": true,
+                "multivalued": false,
+                "readOnly": false
+            },
+            "notificationOrigin" : {
+                "type": "string",
+                "optional": true,
+                "multivalued": false,
+                "readOnly": false
+            },
+            "notificationKind" : {
+                "type": "userNotificationKind",
+                "optional": false,
+                "multivalued": false,
+                "readOnly": false
+            },
+            "notificationPriority" : {
+                "type": "userNotificationPriority",
+                "optional": false,
+                "multivalued": false,
+                "readOnly": false
+            },
+            "notificationSubject" : {
+                "type": "string",
+                "optional": false,
+                "multivalued": false,
+                "readOnly": false
+            },
+            "notificationContent" : {
+                "type": "string",
+                "optional": false,
+                "multivalued": false,
+                "readOnly": false
+            },
+            "sourceDomain" : {
+                "type": "string",
+                "optional": false,
+                "multivalued": false,
+                "readOnly": false
+            },
+            "sourceService" : {
+                "type": "string",
+                "optional": false,
+                "multivalued": false,
+                "readOnly": false
+            },
+            "destinationUser" : {
+                "type": "string",
+                "optional": false,
+                "multivalued": false,
+                "readOnly": false
+            },
+            "link" : {
+                "type": "string",
+                "optional": true,
+                "multivalued": false,
+                "readOnly": false
+            }
+        },
+        "emailNotifyUserEventPayload" : {
+            "notificationClass" : {
+                "type": "string",
+                "optional": true,
+                "multivalued": false,
+                "readOnly": false
+            },
+            "notificationOrigin" : {
+                "type": "string",
+                "optional": true,
+                "multivalued": false,
+                "readOnly": false
+            },
+            "notificationKind" : {
+                "type": "userNotificationKind",
+                "optional": false,
+                "multivalued": false,
+                "readOnly": false
+            },
+            "notificationPriority" : {
+                "type": "userNotificationPriority",
+                "optional": false,
+                "multivalued": false,
+                "readOnly": false
+            },
+            "notificationSubject" : {
+                "type": "string",
+                "optional": false,
+                "multivalued": false,
+                "readOnly": false
+            },
+            "notificationContent" : {
+                "type": "string",
+                "optional": false,
+                "multivalued": false,
+                "readOnly": false
+            },
+            "sourceDomain" : {
+                "type": "string",
+                "optional": false,
+                "multivalued": false,
+                "readOnly": false
+            },
+            "sourceService" : {
+                "type": "string",
+                "optional": false,
+                "multivalued": false,
+                "readOnly": false
+            },
+            "destinationUser" : {
+                "type": "string",
+                "optional": false,
+                "multivalued": false,
+                "readOnly": false
+            },
+            "link" : {
+                "type": "string",
+                "optional": true,
+                "multivalued": false,
+                "readOnly": false
+            },
+            "from" : {
+                "type": "string",
+                "optional": false,
+                "multivalued": false,
+                "readOnly": false
+            },
+            "sendTo" : {
+                "type": "string",
+                "optional": true,
+                "multivalued": true,
+                "readOnly": false
+            },
+            "format" : {
+                "type": "eventEmailFormat",
+                "optional": true,
+                "multivalued": false,
+                "readOnly": false
+            }
+        },
+        "pushNotifyUserEventPayload" : {
+            "notificationClass" : {
+                "type": "string",
+                "optional": true,
+                "multivalued": false,
+                "readOnly": false
+            },
+            "notificationOrigin" : {
+                "type": "string",
+                "optional": true,
+                "multivalued": false,
+                "readOnly": false
+            },
+            "notificationKind" : {
+                "type": "userNotificationKind",
+                "optional": false,
+                "multivalued": false,
+                "readOnly": false
+            },
+            "notificationPriority" : {
+                "type": "userNotificationPriority",
+                "optional": false,
+                "multivalued": false,
+                "readOnly": false
+            },
+            "notificationSubject" : {
+                "type": "string",
+                "optional": false,
+                "multivalued": false,
+                "readOnly": false
+            },
+            "notificationContent" : {
+                "type": "string",
+                "optional": false,
+                "multivalued": false,
+                "readOnly": false
+            },
+            "sourceDomain" : {
+                "type": "string",
+                "optional": false,
+                "multivalued": false,
+                "readOnly": false
+            },
+            "sourceService" : {
+                "type": "string",
+                "optional": false,
+                "multivalued": false,
+                "readOnly": false
+            },
+            "destinationUser" : {
+                "type": "string",
+                "optional": false,
+                "multivalued": false,
+                "readOnly": false
+            },
+            "link" : {
+                "type": "string",
+                "optional": true,
+                "multivalued": false,
+                "readOnly": false
+            },
+            "applicationId" : {
+                "type": "string",
+                "optional": false,
+                "multivalued": false,
+                "readOnly": false
+            }
+        },
+        "blobReference" : {
+            "domainName" : {
+                "type": "string",
+                "optional": true,
+                "multivalued": false,
+                "readOnly": false
+            },
+            "serviceName" : {
+                "type": "string",
+                "optional": true,
+                "multivalued": false,
+                "readOnly": false
+            },
+            "targetObjectId" : {
+                "type": "string",
+                "optional": false,
+                "multivalued": false,
+                "readOnly": false
+            },
+            "targetCopyId" : {
+                "type": "string",
+                "optional": true,
+                "multivalued": false,
+                "readOnly": false
+            }
+        },
+        "basicErrorPayload" : {
+            "message" : {
+                "type": "string",
+                "optional": true,
+                "multivalued": false,
+                "readOnly": false
+            },
+            "errorCode" : {
+                "type": "string",
+                "optional": true,
+                "multivalued": false,
+                "readOnly": false
+            }
+        },
+        "importError" : {
+            "errorType" : {
+                "type": "errorType",
+                "optional": false,
+                "multivalued": false,
+                "readOnly": false
+            },
+            "lineNumber" : {
+                "type": "integer",
+                "optional": false,
+                "multivalued": false,
+                "readOnly": false
+            },
+            "bean" : {
+                "type": "string",
+                "optional": false,
+                "multivalued": false,
+                "readOnly": false
+            },
+            "message" : {
+                "type": "string",
+                "optional": false,
+                "multivalued": false,
+                "readOnly": false
+            },
+            "exceptionClass" : {
+                "type": "string",
+                "optional": false,
+                "multivalued": false,
+                "readOnly": false
+            }
+        },
+        "fielddto" : {
+            "id" : {
+                "type": "integer",
+                "optional": false,
+                "multivalued": false,
+                "readOnly": false
+            },
+            "name" : {
+                "type": "string",
+                "optional": false,
+                "multivalued": false,
+                "readOnly": false
+            },
+            "fieldType" : {
+                "type": "fieldType",
+                "optional": false,
+                "multivalued": false,
+                "readOnly": false
+            },
+            "start" : {
+                "type": "integer",
+                "optional": true,
+                "multivalued": false,
+                "readOnly": false
+            },
+            "size" : {
+                "type": "integer",
+                "optional": true,
+                "multivalued": false,
+                "readOnly": false
+            },
+            "maskPattern" : {
+                "type": "string",
+                "optional": true,
+                "multivalued": false,
+                "readOnly": false
+            }
+        },
+        "hookdto" : {
+            "hookFunction" : {
+                "type": "hookFunction",
+                "optional": false,
+                "multivalued": false,
+                "readOnly": false
+            },
+            "script" : {
+                "type": "string",
+                "optional": false,
+                "multivalued": false,
+                "readOnly": false
+            }
+        },
+        "layoutdto" : {
+            "id" : {
+                "type": "integer",
+                "optional": false,
+                "multivalued": false,
+                "readOnly": false
+            },
+            "description" : {
+                "type": "string",
+                "optional": false,
+                "multivalued": false,
+                "readOnly": false
+            },
+            "fileFormat" : {
+                "type": "fileFormat",
+                "optional": false,
+                "multivalued": false,
+                "readOnly": false
+            },
+            "errorStrategy" : {
+                "type": "errorStrategy",
+                "optional": false,
+                "multivalued": false,
+                "readOnly": false
+            },
+            "delimiter" : {
+                "type": "string",
+                "optional": true,
+                "multivalued": false,
+                "readOnly": false
+            },
+            "skipLines" : {
+                "type": "integer",
+                "optional": false,
+                "multivalued": false,
+                "readOnly": false
+            },
+            "fields" : {
+                "type": "fielddto",
+                "optional": false,
+                "multivalued": true,
+                "readOnly": false
+            },
+            "hooks" : {
+                "type": "hookdto",
+                "optional": true,
+                "multivalued": true,
+                "readOnly": false
+            }
+        },
+        "importReport" : {
+            "id" : {
+                "type": "string",
+                "optional": false,
+                "multivalued": false,
+                "readOnly": false
+            },
+            "startTime" : {
+                "type": "dateTime",
+                "optional": false,
+                "multivalued": false,
+                "readOnly": false
+            },
+            "endTime" : {
+                "type": "dateTime",
+                "optional": false,
+                "multivalued": false,
+                "readOnly": false
+            },
+            "uri" : {
+                "type": "string",
+                "optional": false,
+                "multivalued": false,
+                "readOnly": false
+            },
+            "beanClass" : {
+                "type": "string",
+                "optional": false,
+                "multivalued": false,
+                "readOnly": false
+            },
+            "serviceClass" : {
+                "type": "string",
+                "optional": false,
+                "multivalued": false,
+                "readOnly": false
+            },
+            "layout" : {
+                "type": "layoutdto",
+                "optional": false,
+                "multivalued": false,
+                "readOnly": false
+            },
+            "sucessCount" : {
+                "type": "integer",
+                "optional": false,
+                "multivalued": false,
+                "readOnly": false
+            },
+            "errorsCount" : {
+                "type": "integer",
+                "optional": false,
+                "multivalued": false,
+                "readOnly": false
+            },
+            "filteredCount" : {
+                "type": "integer",
+                "optional": false,
+                "multivalued": false,
+                "readOnly": false
+            },
+            "skippedCount" : {
+                "type": "integer",
+                "optional": false,
+                "multivalued": false,
+                "readOnly": false
+            },
+            "importErrors" : {
+                "type": "importError",
+                "optional": true,
+                "multivalued": true,
+                "readOnly": false
+            }
+        },
+        "exportEventStatus" : {
+            "importerId" : {
+                "type": "string",
+                "optional": false,
+                "multivalued": false,
+                "readOnly": false
+            },
+            "eventType" : {
+                "type": "eventType",
+                "optional": false,
+                "multivalued": false,
+                "readOnly": false
+            },
+            "recordCount" : {
+                "type": "integer",
+                "optional": false,
+                "multivalued": false,
+                "readOnly": false
+            }
+        },
+        "importEventStatus" : {
+            "importerId" : {
+                "type": "string",
+                "optional": false,
+                "multivalued": false,
+                "readOnly": false
+            },
+            "eventType" : {
+                "type": "eventType",
+                "optional": false,
+                "multivalued": false,
+                "readOnly": false
+            },
+            "status" : {
+                "type": "status",
+                "optional": false,
+                "multivalued": false,
+                "readOnly": false
+            },
+            "errorMessage" : {
+                "type": "string",
+                "optional": true,
+                "multivalued": false,
+                "readOnly": false
+            },
+            "recordCount" : {
+                "type": "integer",
+                "optional": false,
+                "multivalued": false,
+                "readOnly": false
+            },
+            "importReport" : {
+                "type": "importReport",
+                "optional": true,
+                "multivalued": false,
+                "readOnly": false
+            }
+        },
+        "exportConfig" : {
+            "uri" : {
+                "type": "string",
+                "optional": false,
+                "multivalued": false,
+                "readOnly": false
+            },
+            "layout" : {
+                "type": "layoutdto",
+                "optional": false,
+                "multivalued": false,
+                "readOnly": false
+            },
+            "async" : {
+                "type": "boolean",
+                "optional": false,
+                "multivalued": false,
+                "readOnly": false
+            },
+            "errorStrategy" : {
+                "type": "string",
+                "optional": false,
+                "multivalued": false,
+                "readOnly": false
+            }
+        },
+        "importConfig" : {
+            "uri" : {
+                "type": "string",
+                "optional": false,
+                "multivalued": false,
+                "readOnly": false
+            },
+            "layout" : {
+                "type": "layoutdto",
+                "optional": false,
+                "multivalued": false,
+                "readOnly": false
+            },
+            "async" : {
+                "type": "boolean",
+                "optional": false,
+                "multivalued": false,
+                "readOnly": false
+            },
+            "batchSize" : {
+                "type": "integer",
+                "optional": false,
+                "multivalued": false,
+                "readOnly": false
+            },
+            "errorStrategy" : {
+                "type": "errorStrategy",
+                "optional": false,
+                "multivalued": false,
+                "readOnly": false
+            }
+        },
+        "dependency" : {
+            "domain" : {
+                "type": "string",
+                "optional": false,
+                "multivalued": false,
+                "readOnly": false
+            },
+            "service" : {
+                "type": "string",
+                "optional": false,
+                "multivalued": false,
+                "readOnly": false
+            },
+            "version" : {
+                "type": "string",
+                "optional": false,
+                "multivalued": false,
+                "readOnly": false
+            }
+        }
+    },
+    "enumerations": {
+        "fotoOperationResult" : [ 
+            "SUCCESS",
+            "ERROR"
+        ],
+        "userNotificationKind" : [ 
+            "Operational",
+            "Management",
+            "News"
+        ],
+        "userNotificationPriority" : [ 
+            "Error",
+            "Alert",
+            "None"
+        ],
+        "eventEmailFormat" : [ 
+            "HTML",
+            "PLAIN_TEXT"
+        ],
+        "fieldType" : [ 
+            "BINARY",
+            "BOOLEAN",
+            "DATE",
+            "DATETIME",
+            "DOUBLE",
+            "ENUM",
+            "INTEGER",
+            "MONEY",
+            "STRING",
+            "TIME"
+        ],
+        "fileFormat" : [ 
+            "CSV",
+            "FLAT",
+            "JSON",
+            "XML"
+        ],
+        "hookFunction" : [ 
+            "BEFORE_PARSE",
+            "BEFORE_CONVERSION",
+            "ON_ERROR",
+            "VALIDATE"
+        ],
+        "eventType" : [ 
+            "CHUNK",
+            "DOWNLOAD",
+            "ERROR",
+            "FINISH",
+            "START"
+        ],
+        "errorStrategy" : [ 
+            "CALL_SCRIPT",
+            "IGNORE",
+            "STOP"
+        ],
+        "status" : [ 
+            "DONE",
+            "DONE_WITH_ERRORS",
+            "DOWNLOADING",
+            "ERROR",
+            "NOT_STARTED",
+            "RUNNING"
+        ],
+        "errorType" : [ 
+            "CONVERT_ERROR",
+            "SERVICE_ERROR"
+        ]
+    },
+    "entities" : {
+        "genero" : {
+            "id": "id",
+            "customizable": false,
+            "slots": { 
+                "id" : {
+                    "type": "string",
+                    "format": "uuid",
+                    "optional": true,
+                    "multivalued": false,
+                	"readOnly": true
+                },
+                "nome" : {
+                    "type": "string",
+                    "optional": false,
+                    "multivalued": false,
+                    "readOnly": false
+                },
+                "descricao" : {
+                    "type": "string",
+                    "optional": false,
+                    "multivalued": false,
+                    "readOnly": false
+                },
+                "filme" : {
+                    "type": "filme",
+                    "optional": true,
+                    "multivalued": false,
+                    "readOnly": false
+                }
+            }    
+        },
+        "diretor" : {
+            "id": "id",
+            "customizable": false,
+            "slots": { 
+                "id" : {
+                    "type": "string",
+                    "format": "uuid",
+                    "optional": true,
+                    "multivalued": false,
+                	"readOnly": true
+                },
+                "nome" : {
+                    "type": "string",
+                    "optional": false,
+                    "multivalued": false,
+                    "readOnly": false
+                },
+                "idade" : {
+                    "type": "integer",
+                    "optional": false,
+                    "multivalued": false,
+                    "readOnly": false
+                },
+                "descricao" : {
+                    "type": "string",
+                    "optional": false,
+                    "multivalued": false,
+                    "readOnly": false
+                },
+                "filmes" : {
+                    "type": "filme",
+                    "optional": true,
+                    "multivalued": true,
+                    "readOnly": false
+                }
+            }    
+        },
+        "filme" : {
+            "id": "id",
+            "customizable": false,
+            "slots": { 
+                "id" : {
+                    "type": "string",
+                    "format": "uuid",
+                    "optional": true,
+                    "multivalued": false,
+                	"readOnly": true
+                },
+                "descricao" : {
+                    "type": "string",
+                    "optional": false,
+                    "multivalued": false,
+                    "readOnly": false
+                },
+                "atores" : {
+                    "type": "ator",
+                    "optional": true,
+                    "multivalued": true,
+                    "readOnly": false
+                },
+                "diretor" : {
+                    "type": "diretor",
+                    "optional": true,
+                    "multivalued": false,
+                    "readOnly": false
+                },
+                "generos" : {
+                    "type": "genero",
+                    "optional": true,
+                    "multivalued": true,
+                    "readOnly": false
+                }
+            }    
+        },
+        "ator" : {
+            "id": "id",
+            "customizable": false,
+            "slots": { 
+                "id" : {
+                    "type": "string",
+                    "format": "uuid",
+                    "optional": true,
+                    "multivalued": false,
+                	"readOnly": true
+                },
+                "nome" : {
+                    "type": "string",
+                    "optional": false,
+                    "multivalued": false,
+                    "readOnly": false
+                },
+                "descricao" : {
+                    "type": "string",
+                    "optional": false,
+                    "multivalued": false,
+                    "readOnly": false
+                },
+                "filme" : {
+                    "type": "filme",
+                    "optional": true,
+                    "multivalued": false,
+                    "readOnly": false
+                }
+            }    
+        }
+    }
+	,
+	"versions": {
+	}
+}

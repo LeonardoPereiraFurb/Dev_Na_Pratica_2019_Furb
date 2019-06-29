@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<feature
+      id="br.com.senior.pdl.language.feature"
+      label="PDL SDK Feature"
+      version="2.3.3">
+
+   <plugin
+         id="br.com.senior.pdl.language"
+         download-size="205"
+         install-size="477"
+         version="2.3.3"
+         unpack="false"/>
+
+   <plugin
+         id="br.com.senior.pdl.language.ide"
+         download-size="132"
+         install-size="426"
+         version="2.3.3"
+         unpack="false"/>
+
+   <plugin
+         id="br.com.senior.pdl.language.ui"
+         download-size="21"
+         install-size="48"
+         version="2.3.3"
+         unpack="false"/>
+
+</feature>

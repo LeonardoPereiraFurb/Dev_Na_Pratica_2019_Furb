@@ -1,0 +1,98 @@
+"resources": [
+	{
+		"name": "genero",
+		"label": "usuarios.userManager.furb_basico_entities_genero_label",
+		"description": "usuarios.userManager.furb_basico_entities_genero_description",
+		"URI": "res://senior.com.br/furb/basico/entities/genero",
+		"actions" : [
+		    {
+		    	"name": "Incluir",
+		    	"label": "usuarios.userManager.furb_basico_entities_genero_action_incluir_label"
+		    },
+		    {
+		    	"name": "Editar",
+		    	"label": "usuarios.userManager.furb_basico_entities_genero_action_editar_label"
+		    },
+		    {
+		    	"name": "Excluir",
+		    	"label": "usuarios.userManager.furb_basico_entities_genero_action_excluir_label"
+		    },
+		    {
+		    	"name": "Visualizar",
+		    	"label": "usuarios.userManager.furb_basico_entities_genero_action_visualizar_label"
+		    }
+		]
+	},
+	{
+		"name": "diretor",
+		"label": "usuarios.userManager.furb_basico_entities_diretor_label",
+		"description": "usuarios.userManager.furb_basico_entities_diretor_description",
+		"URI": "res://senior.com.br/furb/basico/entities/diretor",
+		"actions" : [
+		    {
+		    	"name": "Incluir",
+		    	"label": "usuarios.userManager.furb_basico_entities_diretor_action_incluir_label"
+		    },
+		    {
+		    	"name": "Editar",
+		    	"label": "usuarios.userManager.furb_basico_entities_diretor_action_editar_label"
+		    },
+		    {
+		    	"name": "Excluir",
+		    	"label": "usuarios.userManager.furb_basico_entities_diretor_action_excluir_label"
+		    },
+		    {
+		    	"name": "Visualizar",
+		    	"label": "usuarios.userManager.furb_basico_entities_diretor_action_visualizar_label"
+		    }
+		]
+	},
+	{
+		"name": "filme",
+		"label": "usuarios.userManager.furb_basico_entities_filme_label",
+		"description": "usuarios.userManager.furb_basico_entities_filme_description",
+		"URI": "res://senior.com.br/furb/basico/entities/filme",
+		"actions" : [
+		    {
+		    	"name": "Incluir",
+		    	"label": "usuarios.userManager.furb_basico_entities_filme_action_incluir_label"
+		    },
+		    {
+		    	"name": "Editar",
+		    	"label": "usuarios.userManager.furb_basico_entities_filme_action_editar_label"
+		    },
+		    {
+		    	"name": "Excluir",
+		    	"label": "usuarios.userManager.furb_basico_entities_filme_action_excluir_label"
+		    },
+		    {
+		    	"name": "Visualizar",
+		    	"label": "usuarios.userManager.furb_basico_entities_filme_action_visualizar_label"
+		    }
+		]
+	},
+	{
+		"name": "ator",
+		"label": "usuarios.userManager.furb_basico_entities_ator_label",
+		"description": "usuarios.userManager.furb_basico_entities_ator_description",
+		"URI": "res://senior.com.br/furb/basico/entities/ator",
+		"actions" : [
+		    {
+		    	"name": "Incluir",
+		    	"label": "usuarios.userManager.furb_basico_entities_ator_action_incluir_label"
+		    },
+		    {
+		    	"name": "Editar",
+		    	"label": "usuarios.userManager.furb_basico_entities_ator_action_editar_label"
+		    },
+		    {
+		    	"name": "Excluir",
+		    	"label": "usuarios.userManager.furb_basico_entities_ator_action_excluir_label"
+		    },
+		    {
+		    	"name": "Visualizar",
+		    	"label": "usuarios.userManager.furb_basico_entities_ator_action_visualizar_label"
+		    }
+		]
+	}
+]

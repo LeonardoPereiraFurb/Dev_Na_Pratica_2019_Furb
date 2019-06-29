@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<feature
+      id="br.com.senior.edl.feature"
+      label="EDL Feature "
+      version="13.3.2">
+
+   <plugin
+         id="br.com.senior.edl"
+         download-size="2007"
+         install-size="4372"
+         version="13.3.2"
+         unpack="false"/>
+
+   <plugin
+         id="br.com.senior.edl.ide"
+         download-size="214"
+         install-size="806"
+         version="13.3.2"
+         unpack="false"/>
+
+   <plugin
+         id="br.com.senior.edl.ui"
+         download-size="43"
+         install-size="89"
+         version="13.3.2"
+         unpack="false"/>
+
+</feature>

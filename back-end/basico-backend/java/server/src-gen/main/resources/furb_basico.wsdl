@@ -1,0 +1,2095 @@
+<wsdl:definitions name="basico"
+      targetNamespace="http://www.senior.com.br/furb/basico"
+      xmlns="http://www.senior.com.br/furb/basico"
+      xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/"
+      xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/"
+      xmlns:soapenc="http://schemas.xmlsoap.org/soap/encoding/"
+      xmlns:mime="http://schemas.xmlsoap.org/wsdl/mime/"
+      xmlns:http="http://schemas.xmlsoap.org/wsdl/http/">
+    
+    <version number="${version}" />
+    
+    <wsdl:types>
+        <xsd:schema
+            xmlns:xsd="http://www.w3.org/2001/XMLSchema"
+            xmlns="http://www.senior.com.br/furb/basico"
+            targetNamespace="http://www.senior.com.br/furb/basico"
+            elementFormDefault="qualified">
+            
+            <xsd:attribute name="deprecated" type="xsd:string" default=""/>
+            <xsd:attribute name="anonymous" type="xsd:boolean" default="false"/>
+            
+            <xsd:attribute name="i18n" type="xsd:boolean" default="false"/>
+            
+            <!-- Public types -->
+            <xsd:simpleType name="fotoOperationResult">
+                <xsd:restriction base="xsd:string">
+                    <xsd:enumeration value="SUCCESS"/>
+                    <xsd:enumeration value="ERROR"/>
+                </xsd:restriction>
+             </xsd:simpleType>
+            <xsd:complexType name="genero">
+                <xsd:sequence>
+                    <xsd:element name="id" type="xsd:uuid" minOccurs="0" maxOccurs="1"  readOnly="false">
+                    </xsd:element>
+                    <xsd:element name="nome" type="xsd:string" minOccurs="1" maxOccurs="1"  readOnly="false">
+                    </xsd:element>
+                    <xsd:element name="descricao" type="xsd:string" minOccurs="1" maxOccurs="1"  readOnly="false">
+                    </xsd:element>
+                    <xsd:element name="filme" type="filme" minOccurs="0" maxOccurs="1"  readOnly="false">
+                    </xsd:element>
+                </xsd:sequence>
+            </xsd:complexType>
+            <xsd:complexType name="diretor">
+                <xsd:sequence>
+                    <xsd:element name="id" type="xsd:uuid" minOccurs="0" maxOccurs="1"  readOnly="false">
+                    </xsd:element>
+                    <xsd:element name="nome" type="xsd:string" minOccurs="1" maxOccurs="1"  readOnly="false">
+                    </xsd:element>
+                    <xsd:element name="idade" type="xsd:long" minOccurs="1" maxOccurs="1"  readOnly="false">
+                    </xsd:element>
+                    <xsd:element name="descricao" type="xsd:string" minOccurs="1" maxOccurs="1"  readOnly="false">
+                    </xsd:element>
+                    <!-- collection wrapper for filmes -->
+                    <xsd:element name="filmes" minOccurs="0" maxOccurs="1">
+                        <xsd:complexType>
+                            <xsd:sequence>
+                                <xsd:element name="item" type="filme" minOccurs="0" maxOccurs="unbounded"/>
+                            </xsd:sequence>
+                        </xsd:complexType>
+                    </xsd:element>
+                </xsd:sequence>
+            </xsd:complexType>
+            <xsd:complexType name="filme">
+                <xsd:sequence>
+                    <xsd:element name="id" type="xsd:uuid" minOccurs="0" maxOccurs="1"  readOnly="false">
+                    </xsd:element>
+                    <xsd:element name="descricao" type="xsd:string" minOccurs="1" maxOccurs="1"  readOnly="false">
+                    </xsd:element>
+                    <!-- collection wrapper for atores -->
+                    <xsd:element name="atores" minOccurs="0" maxOccurs="1">
+                        <xsd:complexType>
+                            <xsd:sequence>
+                                <xsd:element name="item" type="ator" minOccurs="0" maxOccurs="unbounded"/>
+                            </xsd:sequence>
+                        </xsd:complexType>
+                    </xsd:element>
+                    <xsd:element name="diretor" type="diretor" minOccurs="0" maxOccurs="1"  readOnly="false">
+                    </xsd:element>
+                    <!-- collection wrapper for generos -->
+                    <xsd:element name="generos" minOccurs="0" maxOccurs="1">
+                        <xsd:complexType>
+                            <xsd:sequence>
+                                <xsd:element name="item" type="genero" minOccurs="0" maxOccurs="unbounded"/>
+                            </xsd:sequence>
+                        </xsd:complexType>
+                    </xsd:element>
+                </xsd:sequence>
+            </xsd:complexType>
+            <xsd:complexType name="ator">
+                <xsd:sequence>
+                    <xsd:element name="id" type="xsd:uuid" minOccurs="0" maxOccurs="1"  readOnly="false">
+                    </xsd:element>
+                    <xsd:element name="nome" type="xsd:string" minOccurs="1" maxOccurs="1"  readOnly="false">
+                    </xsd:element>
+                    <xsd:element name="descricao" type="xsd:string" minOccurs="1" maxOccurs="1"  readOnly="false">
+                    </xsd:element>
+                    <xsd:element name="filme" type="filme" minOccurs="0" maxOccurs="1"  readOnly="false">
+                    </xsd:element>
+                </xsd:sequence>
+            </xsd:complexType>
+            <xsd:simpleType name="userNotificationKind">
+                <xsd:restriction base="xsd:string">
+                    <xsd:enumeration value="Operational"/>
+                    <xsd:enumeration value="Management"/>
+                    <xsd:enumeration value="News"/>
+                </xsd:restriction>
+             </xsd:simpleType>
+            <xsd:simpleType name="userNotificationPriority">
+                <xsd:restriction base="xsd:string">
+                    <xsd:enumeration value="Error"/>
+                    <xsd:enumeration value="Alert"/>
+                    <xsd:enumeration value="None"/>
+                </xsd:restriction>
+             </xsd:simpleType>
+            <xsd:complexType name="notifyUserEventPayload">
+                <xsd:sequence>
+                    <xsd:element name="notificationClass" type="xsd:string" minOccurs="0" maxOccurs="1"  readOnly="false">
+                    </xsd:element>
+                    <xsd:element name="notificationOrigin" type="xsd:string" minOccurs="0" maxOccurs="1"  readOnly="false">
+                    </xsd:element>
+                    <xsd:element name="notificationKind" type="userNotificationKind" minOccurs="1" maxOccurs="1"  readOnly="false">
+                    </xsd:element>
+                    <xsd:element name="notificationPriority" type="userNotificationPriority" minOccurs="1" maxOccurs="1"  readOnly="false">
+                    </xsd:element>
+                    <xsd:element name="notificationSubject" type="xsd:string" minOccurs="1" maxOccurs="1"  readOnly="false">
+                    </xsd:element>
+                    <xsd:element name="notificationContent" type="xsd:string" minOccurs="1" maxOccurs="1"  readOnly="false">
+                    </xsd:element>
+                    <xsd:element name="sourceDomain" type="xsd:string" minOccurs="1" maxOccurs="1"  readOnly="false">
+                    </xsd:element>
+                    <xsd:element name="sourceService" type="xsd:string" minOccurs="1" maxOccurs="1"  readOnly="false">
+                    </xsd:element>
+                    <xsd:element name="destinationUser" type="xsd:string" minOccurs="1" maxOccurs="1"  readOnly="false">
+                    </xsd:element>
+                    <xsd:element name="link" type="xsd:string" minOccurs="0" maxOccurs="1"  readOnly="false">
+                    </xsd:element>
+                </xsd:sequence>
+            </xsd:complexType>
+            <xsd:simpleType name="eventEmailFormat">
+                <xsd:restriction base="xsd:string">
+                    <xsd:enumeration value="HTML"/>
+                    <xsd:enumeration value="PLAIN_TEXT"/>
+                </xsd:restriction>
+             </xsd:simpleType>
+            <xsd:complexType name="emailNotifyUserEventPayload">
+                <xsd:complexContent>
+                    <xsd:extension base="notifyUserEventPayload">
+                        <xsd:sequence>
+                            <xsd:element name="from" type="xsd:string" minOccurs="1" maxOccurs="1"  readOnly="false">
+                            </xsd:element>
+                            <!-- collection wrapper for sendTo -->
+                            <xsd:element name="sendTo" minOccurs="0" maxOccurs="1">
+                                <xsd:complexType>
+                                    <xsd:sequence>
+                                        <xsd:element name="item" type="xsd:string" minOccurs="0" maxOccurs="unbounded"/>
+                                    </xsd:sequence>
+                                </xsd:complexType>
+                            </xsd:element>
+                            <xsd:element name="format" type="eventEmailFormat" minOccurs="0" maxOccurs="1"  readOnly="false">
+                            </xsd:element>
+                        </xsd:sequence>
+                    </xsd:extension>
+                </xsd:complexContent>
+            </xsd:complexType>
+            <xsd:complexType name="pushNotifyUserEventPayload">
+                <xsd:complexContent>
+                    <xsd:extension base="notifyUserEventPayload">
+                        <xsd:sequence>
+                            <xsd:element name="applicationId" type="xsd:string" minOccurs="1" maxOccurs="1"  readOnly="false">
+                            </xsd:element>
+                        </xsd:sequence>
+                    </xsd:extension>
+                </xsd:complexContent>
+            </xsd:complexType>
+            <xsd:complexType name="blobReference">
+                <xsd:sequence>
+                    <xsd:element name="domainName" type="xsd:string" minOccurs="0" maxOccurs="1"  readOnly="false">
+                    </xsd:element>
+                    <xsd:element name="serviceName" type="xsd:string" minOccurs="0" maxOccurs="1"  readOnly="false">
+                    </xsd:element>
+                    <xsd:element name="targetObjectId" type="xsd:string" minOccurs="1" maxOccurs="1"  readOnly="false">
+                    </xsd:element>
+                    <xsd:element name="targetCopyId" type="xsd:string" minOccurs="0" maxOccurs="1"  readOnly="false">
+                    </xsd:element>
+                </xsd:sequence>
+            </xsd:complexType>
+            <xsd:complexType name="basicErrorPayload">
+                <xsd:sequence>
+                    <xsd:element name="message" type="xsd:string" minOccurs="0" maxOccurs="1"  readOnly="false">
+                    </xsd:element>
+                    <xsd:element name="errorCode" type="xsd:string" minOccurs="0" maxOccurs="1"  readOnly="false">
+                    </xsd:element>
+                </xsd:sequence>
+            </xsd:complexType>
+            <xsd:simpleType name="fieldType">
+                <xsd:restriction base="xsd:string">
+                    <xsd:enumeration value="BINARY"/>
+                    <xsd:enumeration value="BOOLEAN"/>
+                    <xsd:enumeration value="DATE"/>
+                    <xsd:enumeration value="DATETIME"/>
+                    <xsd:enumeration value="DOUBLE"/>
+                    <xsd:enumeration value="ENUM"/>
+                    <xsd:enumeration value="INTEGER"/>
+                    <xsd:enumeration value="MONEY"/>
+                    <xsd:enumeration value="STRING"/>
+                    <xsd:enumeration value="TIME"/>
+                </xsd:restriction>
+             </xsd:simpleType>
+            <xsd:simpleType name="fileFormat">
+                <xsd:restriction base="xsd:string">
+                    <xsd:enumeration value="CSV"/>
+                    <xsd:enumeration value="FLAT"/>
+                    <xsd:enumeration value="JSON"/>
+                    <xsd:enumeration value="XML"/>
+                </xsd:restriction>
+             </xsd:simpleType>
+            <xsd:simpleType name="hookFunction">
+                <xsd:restriction base="xsd:string">
+                    <xsd:enumeration value="BEFORE_PARSE"/>
+                    <xsd:enumeration value="BEFORE_CONVERSION"/>
+                    <xsd:enumeration value="ON_ERROR"/>
+                    <xsd:enumeration value="VALIDATE"/>
+                </xsd:restriction>
+             </xsd:simpleType>
+            <xsd:simpleType name="eventType">
+                <xsd:restriction base="xsd:string">
+                    <xsd:enumeration value="CHUNK"/>
+                    <xsd:enumeration value="DOWNLOAD"/>
+                    <xsd:enumeration value="ERROR"/>
+                    <xsd:enumeration value="FINISH"/>
+                    <xsd:enumeration value="START"/>
+                </xsd:restriction>
+             </xsd:simpleType>
+            <xsd:simpleType name="errorStrategy">
+                <xsd:restriction base="xsd:string">
+                    <xsd:enumeration value="CALL_SCRIPT"/>
+                    <xsd:enumeration value="IGNORE"/>
+                    <xsd:enumeration value="STOP"/>
+                </xsd:restriction>
+             </xsd:simpleType>
+            <xsd:simpleType name="status">
+                <xsd:restriction base="xsd:string">
+                    <xsd:enumeration value="DONE"/>
+                    <xsd:enumeration value="DONE_WITH_ERRORS"/>
+                    <xsd:enumeration value="DOWNLOADING"/>
+                    <xsd:enumeration value="ERROR"/>
+                    <xsd:enumeration value="NOT_STARTED"/>
+                    <xsd:enumeration value="RUNNING"/>
+                </xsd:restriction>
+             </xsd:simpleType>
+            <xsd:simpleType name="errorType">
+                <xsd:restriction base="xsd:string">
+                    <xsd:enumeration value="CONVERT_ERROR"/>
+                    <xsd:enumeration value="SERVICE_ERROR"/>
+                </xsd:restriction>
+             </xsd:simpleType>
+            <xsd:complexType name="importError">
+                <xsd:sequence>
+                    <xsd:element name="errorType" type="errorType" minOccurs="1" maxOccurs="1"  readOnly="false">
+                    </xsd:element>
+                    <xsd:element name="lineNumber" type="xsd:long" minOccurs="1" maxOccurs="1"  readOnly="false">
+                    </xsd:element>
+                    <xsd:element name="bean" type="xsd:string" minOccurs="1" maxOccurs="1"  readOnly="false">
+                    </xsd:element>
+                    <xsd:element name="message" type="xsd:string" minOccurs="1" maxOccurs="1"  readOnly="false">
+                    </xsd:element>
+                    <xsd:element name="exceptionClass" type="xsd:string" minOccurs="1" maxOccurs="1"  readOnly="false">
+                    </xsd:element>
+                </xsd:sequence>
+            </xsd:complexType>
+            <xsd:complexType name="fielddto">
+                <xsd:sequence>
+                    <xsd:element name="id" type="xsd:long" minOccurs="1" maxOccurs="1"  readOnly="false">
+                    </xsd:element>
+                    <xsd:element name="name" type="xsd:string" minOccurs="1" maxOccurs="1"  readOnly="false">
+                    </xsd:element>
+                    <xsd:element name="fieldType" type="fieldType" minOccurs="1" maxOccurs="1"  readOnly="false">
+                    </xsd:element>
+                    <xsd:element name="start" type="xsd:long" minOccurs="0" maxOccurs="1"  readOnly="false">
+                    </xsd:element>
+                    <xsd:element name="size" type="xsd:long" minOccurs="0" maxOccurs="1"  readOnly="false">
+                    </xsd:element>
+                    <xsd:element name="maskPattern" type="xsd:string" minOccurs="0" maxOccurs="1"  readOnly="false">
+                    </xsd:element>
+                </xsd:sequence>
+            </xsd:complexType>
+            <xsd:complexType name="hookdto">
+                <xsd:sequence>
+                    <xsd:element name="hookFunction" type="hookFunction" minOccurs="1" maxOccurs="1"  readOnly="false">
+                    </xsd:element>
+                    <xsd:element name="script" type="xsd:string" minOccurs="1" maxOccurs="1"  readOnly="false">
+                    </xsd:element>
+                </xsd:sequence>
+            </xsd:complexType>
+            <xsd:complexType name="layoutdto">
+                <xsd:sequence>
+                    <xsd:element name="id" type="xsd:long" minOccurs="1" maxOccurs="1"  readOnly="false">
+                    </xsd:element>
+                    <xsd:element name="description" type="xsd:string" minOccurs="1" maxOccurs="1"  readOnly="false">
+                    </xsd:element>
+                    <xsd:element name="fileFormat" type="fileFormat" minOccurs="1" maxOccurs="1"  readOnly="false">
+                    </xsd:element>
+                    <xsd:element name="errorStrategy" type="errorStrategy" minOccurs="1" maxOccurs="1"  readOnly="false">
+                    </xsd:element>
+                    <xsd:element name="delimiter" type="xsd:string" minOccurs="0" maxOccurs="1"  readOnly="false">
+                    </xsd:element>
+                    <xsd:element name="skipLines" type="xsd:long" minOccurs="1" maxOccurs="1"  readOnly="false">
+                    </xsd:element>
+                    <!-- collection wrapper for fields -->
+                    <xsd:element name="fields" minOccurs="1" maxOccurs="1">
+                        <xsd:complexType>
+                            <xsd:sequence>
+                                <xsd:element name="item" type="fielddto" minOccurs="1" maxOccurs="unbounded"/>
+                            </xsd:sequence>
+                        </xsd:complexType>
+                    </xsd:element>
+                    <!-- collection wrapper for hooks -->
+                    <xsd:element name="hooks" minOccurs="0" maxOccurs="1">
+                        <xsd:complexType>
+                            <xsd:sequence>
+                                <xsd:element name="item" type="hookdto" minOccurs="0" maxOccurs="unbounded"/>
+                            </xsd:sequence>
+                        </xsd:complexType>
+                    </xsd:element>
+                </xsd:sequence>
+            </xsd:complexType>
+            <xsd:complexType name="importReport">
+                <xsd:sequence>
+                    <xsd:element name="id" type="xsd:string" minOccurs="1" maxOccurs="1"  readOnly="false">
+                    </xsd:element>
+                    <xsd:element name="startTime" type="xsd:dateTime" minOccurs="1" maxOccurs="1"  readOnly="false">
+                    </xsd:element>
+                    <xsd:element name="endTime" type="xsd:dateTime" minOccurs="1" maxOccurs="1"  readOnly="false">
+                    </xsd:element>
+                    <xsd:element name="uri" type="xsd:string" minOccurs="1" maxOccurs="1"  readOnly="false">
+                    </xsd:element>
+                    <xsd:element name="beanClass" type="xsd:string" minOccurs="1" maxOccurs="1"  readOnly="false">
+                    </xsd:element>
+                    <xsd:element name="serviceClass" type="xsd:string" minOccurs="1" maxOccurs="1"  readOnly="false">
+                    </xsd:element>
+                    <xsd:element name="layout" type="layoutdto" minOccurs="1" maxOccurs="1"  readOnly="false">
+                    </xsd:element>
+                    <xsd:element name="sucessCount" type="xsd:long" minOccurs="1" maxOccurs="1"  readOnly="false">
+                    </xsd:element>
+                    <xsd:element name="errorsCount" type="xsd:long" minOccurs="1" maxOccurs="1"  readOnly="false">
+                    </xsd:element>
+                    <xsd:element name="filteredCount" type="xsd:long" minOccurs="1" maxOccurs="1"  readOnly="false">
+                    </xsd:element>
+                    <xsd:element name="skippedCount" type="xsd:long" minOccurs="1" maxOccurs="1"  readOnly="false">
+                    </xsd:element>
+                    <!-- collection wrapper for importErrors -->
+                    <xsd:element name="importErrors" minOccurs="0" maxOccurs="1">
+                        <xsd:complexType>
+                            <xsd:sequence>
+                                <xsd:element name="item" type="importError" minOccurs="0" maxOccurs="unbounded"/>
+                            </xsd:sequence>
+                        </xsd:complexType>
+                    </xsd:element>
+                </xsd:sequence>
+            </xsd:complexType>
+            <xsd:complexType name="exportEventStatus">
+                <xsd:sequence>
+                    <xsd:element name="importerId" type="xsd:string" minOccurs="1" maxOccurs="1"  readOnly="false">
+                    </xsd:element>
+                    <xsd:element name="eventType" type="eventType" minOccurs="1" maxOccurs="1"  readOnly="false">
+                    </xsd:element>
+                    <xsd:element name="recordCount" type="xsd:long" minOccurs="1" maxOccurs="1"  readOnly="false">
+                    </xsd:element>
+                </xsd:sequence>
+            </xsd:complexType>
+            <xsd:complexType name="importEventStatus">
+                <xsd:sequence>
+                    <xsd:element name="importerId" type="xsd:string" minOccurs="1" maxOccurs="1"  readOnly="false">
+                    </xsd:element>
+                    <xsd:element name="eventType" type="eventType" minOccurs="1" maxOccurs="1"  readOnly="false">
+                    </xsd:element>
+                    <xsd:element name="status" type="status" minOccurs="1" maxOccurs="1"  readOnly="false">
+                    </xsd:element>
+                    <xsd:element name="errorMessage" type="xsd:string" minOccurs="0" maxOccurs="1"  readOnly="false">
+                    </xsd:element>
+                    <xsd:element name="recordCount" type="xsd:long" minOccurs="1" maxOccurs="1"  readOnly="false">
+                    </xsd:element>
+                    <xsd:element name="importReport" type="importReport" minOccurs="0" maxOccurs="1"  readOnly="false">
+                    </xsd:element>
+                </xsd:sequence>
+            </xsd:complexType>
+            <xsd:complexType name="exportConfig">
+                <xsd:sequence>
+                    <xsd:element name="uri" type="xsd:string" minOccurs="1" maxOccurs="1"  readOnly="false">
+                    </xsd:element>
+                    <xsd:element name="layout" type="layoutdto" minOccurs="1" maxOccurs="1"  readOnly="false">
+                    </xsd:element>
+                    <xsd:element name="async" type="xsd:boolean" minOccurs="1" maxOccurs="1"  readOnly="false">
+                    </xsd:element>
+                    <xsd:element name="errorStrategy" type="xsd:string" minOccurs="1" maxOccurs="1"  readOnly="false">
+                    </xsd:element>
+                </xsd:sequence>
+            </xsd:complexType>
+            <xsd:complexType name="importConfig">
+                <xsd:sequence>
+                    <xsd:element name="uri" type="xsd:string" minOccurs="1" maxOccurs="1"  readOnly="false">
+                    </xsd:element>
+                    <xsd:element name="layout" type="layoutdto" minOccurs="1" maxOccurs="1"  readOnly="false">
+                    </xsd:element>
+                    <xsd:element name="async" type="xsd:boolean" minOccurs="1" maxOccurs="1"  readOnly="false">
+                    </xsd:element>
+                    <xsd:element name="batchSize" type="xsd:long" minOccurs="1" maxOccurs="1"  readOnly="false">
+                    </xsd:element>
+                    <xsd:element name="errorStrategy" type="errorStrategy" minOccurs="1" maxOccurs="1"  readOnly="false">
+                    </xsd:element>
+                </xsd:sequence>
+            </xsd:complexType>
+            <xsd:complexType name="dependency">
+                <xsd:sequence>
+                    <xsd:element name="domain" type="xsd:string" minOccurs="1" maxOccurs="1"  readOnly="false">
+                    </xsd:element>
+                    <xsd:element name="service" type="xsd:string" minOccurs="1" maxOccurs="1"  readOnly="false">
+                    </xsd:element>
+                    <xsd:element name="version" type="xsd:string" minOccurs="1" maxOccurs="1"  readOnly="false">
+                    </xsd:element>
+                </xsd:sequence>
+            </xsd:complexType>
+            <xsd:simpleType name="uuid">
+                <xsd:restriction base="xsd:string">
+                	<xsd:pattern value="[0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{12}" />
+                </xsd:restriction>
+             </xsd:simpleType>
+            
+            <!-- Message payload elements for signals -->
+            
+            <!-- Message input/output elements for commands -->
+            <xsd:element name="deleteAtor">
+                <xsd:complexType>
+                    <xsd:sequence>
+                        <xsd:element name="id" type="xsd:uuid" minOccurs="1" maxOccurs="1"  readOnly="false">
+                        </xsd:element>
+                    </xsd:sequence>
+                </xsd:complexType>
+            </xsd:element>
+            <xsd:element name="createMergeFilme">
+                <xsd:complexType/>
+            </xsd:element>
+            <xsd:element name="createMergeGenero">
+                <xsd:complexType/>
+            </xsd:element>
+            <xsd:element name="exportAtor">
+                <xsd:complexType>
+                    <xsd:sequence>
+                        <xsd:element name="config" type="exportConfig" minOccurs="1" maxOccurs="1"  readOnly="false">
+                        </xsd:element>
+                    </xsd:sequence>
+                </xsd:complexType>
+            </xsd:element>
+            <xsd:element name="exportAtorOutput">
+                <xsd:complexType>
+                    <xsd:sequence>
+                        <xsd:element name="exportJobId" type="xsd:string" minOccurs="1" maxOccurs="1"  readOnly="false">
+                        </xsd:element>
+                    </xsd:sequence>
+                </xsd:complexType>
+            </xsd:element>
+            <xsd:element name="listFilme">
+                <xsd:complexType>
+                    <xsd:sequence>
+                        <xsd:element name="offset" type="xsd:long" minOccurs="1" maxOccurs="1"  readOnly="false">
+                        </xsd:element>
+                        <xsd:element name="size" type="xsd:long" minOccurs="1" maxOccurs="1"  readOnly="false">
+                        </xsd:element>
+                        <xsd:element name="orderBy" type="xsd:string" minOccurs="1" maxOccurs="1"  readOnly="false">
+                        </xsd:element>
+                        <xsd:element name="filter" type="xsd:string" minOccurs="1" maxOccurs="1"  readOnly="false">
+                        </xsd:element>
+                        <!-- collection wrapper for displayFields -->
+                        <xsd:element name="displayFields" minOccurs="1" maxOccurs="1">
+                            <xsd:complexType>
+                                <xsd:sequence>
+                                    <xsd:element name="item" type="xsd:string" minOccurs="1" maxOccurs="unbounded"/>
+                                </xsd:sequence>
+                            </xsd:complexType>
+                        </xsd:element>
+                    </xsd:sequence>
+                </xsd:complexType>
+            </xsd:element>
+            <xsd:element name="listFilmeOutput">
+                <xsd:complexType>
+                    <xsd:sequence>
+                        <!-- collection wrapper for contents -->
+                        <xsd:element name="contents" minOccurs="1" maxOccurs="1">
+                            <xsd:complexType>
+                                <xsd:sequence>
+                                    <xsd:element name="item" type="filme" minOccurs="1" maxOccurs="unbounded"/>
+                                </xsd:sequence>
+                            </xsd:complexType>
+                        </xsd:element>
+                    </xsd:sequence>
+                </xsd:complexType>
+            </xsd:element>
+            <xsd:element name="listDiretor">
+                <xsd:complexType>
+                    <xsd:sequence>
+                        <xsd:element name="offset" type="xsd:long" minOccurs="1" maxOccurs="1"  readOnly="false">
+                        </xsd:element>
+                        <xsd:element name="size" type="xsd:long" minOccurs="1" maxOccurs="1"  readOnly="false">
+                        </xsd:element>
+                        <xsd:element name="orderBy" type="xsd:string" minOccurs="1" maxOccurs="1"  readOnly="false">
+                        </xsd:element>
+                        <xsd:element name="filter" type="xsd:string" minOccurs="1" maxOccurs="1"  readOnly="false">
+                        </xsd:element>
+                        <!-- collection wrapper for displayFields -->
+                        <xsd:element name="displayFields" minOccurs="1" maxOccurs="1">
+                            <xsd:complexType>
+                                <xsd:sequence>
+                                    <xsd:element name="item" type="xsd:string" minOccurs="1" maxOccurs="unbounded"/>
+                                </xsd:sequence>
+                            </xsd:complexType>
+                        </xsd:element>
+                    </xsd:sequence>
+                </xsd:complexType>
+            </xsd:element>
+            <xsd:element name="listDiretorOutput">
+                <xsd:complexType>
+                    <xsd:sequence>
+                        <!-- collection wrapper for contents -->
+                        <xsd:element name="contents" minOccurs="1" maxOccurs="1">
+                            <xsd:complexType>
+                                <xsd:sequence>
+                                    <xsd:element name="item" type="diretor" minOccurs="1" maxOccurs="unbounded"/>
+                                </xsd:sequence>
+                            </xsd:complexType>
+                        </xsd:element>
+                    </xsd:sequence>
+                </xsd:complexType>
+            </xsd:element>
+            <xsd:element name="deleteFilme">
+                <xsd:complexType>
+                    <xsd:sequence>
+                        <xsd:element name="id" type="xsd:uuid" minOccurs="1" maxOccurs="1"  readOnly="false">
+                        </xsd:element>
+                    </xsd:sequence>
+                </xsd:complexType>
+            </xsd:element>
+            <xsd:element name="createMergeAtor">
+                <xsd:complexType/>
+            </xsd:element>
+            <xsd:element name="gravarFoto">
+                <xsd:complexType>
+                    <xsd:sequence>
+                        <xsd:element name="id" type="xsd:string" minOccurs="1" maxOccurs="1"  readOnly="false">
+                        </xsd:element>
+                        <xsd:element name="version" type="xsd:string" minOccurs="1" maxOccurs="1"  readOnly="false">
+                        </xsd:element>
+                    </xsd:sequence>
+                </xsd:complexType>
+            </xsd:element>
+            <xsd:element name="gravarFotoOutput">
+                <xsd:complexType>
+                    <xsd:sequence>
+                        <xsd:element name="result" type="fotoOperationResult" minOccurs="1" maxOccurs="1"  readOnly="false">
+                        </xsd:element>
+                    </xsd:sequence>
+                </xsd:complexType>
+            </xsd:element>
+            <xsd:element name="createBulkDiretor">
+                <xsd:complexType>
+                    <xsd:sequence>
+                        <!-- collection wrapper for entities -->
+                        <xsd:element name="entities" minOccurs="1" maxOccurs="1">
+                            <xsd:complexType>
+                                <xsd:sequence>
+                                    <xsd:element name="item" type="diretor" minOccurs="1" maxOccurs="unbounded"/>
+                                </xsd:sequence>
+                            </xsd:complexType>
+                        </xsd:element>
+                    </xsd:sequence>
+                </xsd:complexType>
+            </xsd:element>
+            <xsd:element name="createBulkDiretorOutput">
+                <xsd:complexType>
+                    <xsd:sequence>
+                    </xsd:sequence>
+                </xsd:complexType>
+            </xsd:element>
+            <xsd:element name="obterUrlDownloadFoto">
+                <xsd:complexType>
+                    <xsd:sequence>
+                        <xsd:element name="id" type="xsd:string" minOccurs="1" maxOccurs="1"  readOnly="false">
+                        </xsd:element>
+                    </xsd:sequence>
+                </xsd:complexType>
+            </xsd:element>
+            <xsd:element name="obterUrlDownloadFotoOutput">
+                <xsd:complexType>
+                    <xsd:sequence>
+                        <xsd:element name="url" type="xsd:string" minOccurs="1" maxOccurs="1"  readOnly="false">
+                        </xsd:element>
+                    </xsd:sequence>
+                </xsd:complexType>
+            </xsd:element>
+            <xsd:element name="createMergeDiretor">
+                <xsd:complexType/>
+            </xsd:element>
+            <xsd:element name="createGenero">
+                <xsd:complexType/>
+            </xsd:element>
+            <xsd:element name="importFilme">
+                <xsd:complexType>
+                    <xsd:sequence>
+                        <xsd:element name="config" type="importConfig" minOccurs="1" maxOccurs="1"  readOnly="false">
+                        </xsd:element>
+                    </xsd:sequence>
+                </xsd:complexType>
+            </xsd:element>
+            <xsd:element name="importFilmeOutput">
+                <xsd:complexType>
+                    <xsd:sequence>
+                        <xsd:element name="importJobId" type="xsd:string" minOccurs="1" maxOccurs="1"  readOnly="false">
+                        </xsd:element>
+                    </xsd:sequence>
+                </xsd:complexType>
+            </xsd:element>
+            <xsd:element name="createBulkFilme">
+                <xsd:complexType>
+                    <xsd:sequence>
+                        <!-- collection wrapper for entities -->
+                        <xsd:element name="entities" minOccurs="1" maxOccurs="1">
+                            <xsd:complexType>
+                                <xsd:sequence>
+                                    <xsd:element name="item" type="filme" minOccurs="1" maxOccurs="unbounded"/>
+                                </xsd:sequence>
+                            </xsd:complexType>
+                        </xsd:element>
+                    </xsd:sequence>
+                </xsd:complexType>
+            </xsd:element>
+            <xsd:element name="createBulkFilmeOutput">
+                <xsd:complexType>
+                    <xsd:sequence>
+                    </xsd:sequence>
+                </xsd:complexType>
+            </xsd:element>
+            <xsd:element name="retrieveGenero">
+                <xsd:complexType>
+                    <xsd:sequence>
+                        <xsd:element name="id" type="xsd:uuid" minOccurs="1" maxOccurs="1"  readOnly="false">
+                        </xsd:element>
+                    </xsd:sequence>
+                </xsd:complexType>
+            </xsd:element>
+            <xsd:element name="importGenero">
+                <xsd:complexType>
+                    <xsd:sequence>
+                        <xsd:element name="config" type="importConfig" minOccurs="1" maxOccurs="1"  readOnly="false">
+                        </xsd:element>
+                    </xsd:sequence>
+                </xsd:complexType>
+            </xsd:element>
+            <xsd:element name="importGeneroOutput">
+                <xsd:complexType>
+                    <xsd:sequence>
+                        <xsd:element name="importJobId" type="xsd:string" minOccurs="1" maxOccurs="1"  readOnly="false">
+                        </xsd:element>
+                    </xsd:sequence>
+                </xsd:complexType>
+            </xsd:element>
+            <xsd:element name="createBulkAtor">
+                <xsd:complexType>
+                    <xsd:sequence>
+                        <!-- collection wrapper for entities -->
+                        <xsd:element name="entities" minOccurs="1" maxOccurs="1">
+                            <xsd:complexType>
+                                <xsd:sequence>
+                                    <xsd:element name="item" type="ator" minOccurs="1" maxOccurs="unbounded"/>
+                                </xsd:sequence>
+                            </xsd:complexType>
+                        </xsd:element>
+                    </xsd:sequence>
+                </xsd:complexType>
+            </xsd:element>
+            <xsd:element name="createBulkAtorOutput">
+                <xsd:complexType>
+                    <xsd:sequence>
+                    </xsd:sequence>
+                </xsd:complexType>
+            </xsd:element>
+            <xsd:element name="updateMergeGenero">
+                <xsd:complexType/>
+            </xsd:element>
+            <xsd:element name="updateGenero">
+                <xsd:complexType/>
+            </xsd:element>
+            <xsd:element name="retrieveAtor">
+                <xsd:complexType>
+                    <xsd:sequence>
+                        <xsd:element name="id" type="xsd:uuid" minOccurs="1" maxOccurs="1"  readOnly="false">
+                        </xsd:element>
+                    </xsd:sequence>
+                </xsd:complexType>
+            </xsd:element>
+            <xsd:element name="retrieveDiretor">
+                <xsd:complexType>
+                    <xsd:sequence>
+                        <xsd:element name="id" type="xsd:uuid" minOccurs="1" maxOccurs="1"  readOnly="false">
+                        </xsd:element>
+                    </xsd:sequence>
+                </xsd:complexType>
+            </xsd:element>
+            <xsd:element name="listGenero">
+                <xsd:complexType>
+                    <xsd:sequence>
+                        <xsd:element name="offset" type="xsd:long" minOccurs="1" maxOccurs="1"  readOnly="false">
+                        </xsd:element>
+                        <xsd:element name="size" type="xsd:long" minOccurs="1" maxOccurs="1"  readOnly="false">
+                        </xsd:element>
+                        <xsd:element name="orderBy" type="xsd:string" minOccurs="1" maxOccurs="1"  readOnly="false">
+                        </xsd:element>
+                        <xsd:element name="filter" type="xsd:string" minOccurs="1" maxOccurs="1"  readOnly="false">
+                        </xsd:element>
+                        <!-- collection wrapper for displayFields -->
+                        <xsd:element name="displayFields" minOccurs="1" maxOccurs="1">
+                            <xsd:complexType>
+                                <xsd:sequence>
+                                    <xsd:element name="item" type="xsd:string" minOccurs="1" maxOccurs="unbounded"/>
+                                </xsd:sequence>
+                            </xsd:complexType>
+                        </xsd:element>
+                    </xsd:sequence>
+                </xsd:complexType>
+            </xsd:element>
+            <xsd:element name="listGeneroOutput">
+                <xsd:complexType>
+                    <xsd:sequence>
+                        <!-- collection wrapper for contents -->
+                        <xsd:element name="contents" minOccurs="1" maxOccurs="1">
+                            <xsd:complexType>
+                                <xsd:sequence>
+                                    <xsd:element name="item" type="genero" minOccurs="1" maxOccurs="unbounded"/>
+                                </xsd:sequence>
+                            </xsd:complexType>
+                        </xsd:element>
+                    </xsd:sequence>
+                </xsd:complexType>
+            </xsd:element>
+            <xsd:element name="exportDiretor">
+                <xsd:complexType>
+                    <xsd:sequence>
+                        <xsd:element name="config" type="exportConfig" minOccurs="1" maxOccurs="1"  readOnly="false">
+                        </xsd:element>
+                    </xsd:sequence>
+                </xsd:complexType>
+            </xsd:element>
+            <xsd:element name="exportDiretorOutput">
+                <xsd:complexType>
+                    <xsd:sequence>
+                        <xsd:element name="exportJobId" type="xsd:string" minOccurs="1" maxOccurs="1"  readOnly="false">
+                        </xsd:element>
+                    </xsd:sequence>
+                </xsd:complexType>
+            </xsd:element>
+            <xsd:element name="getMetadata">
+                <xsd:complexType>
+                    <xsd:sequence>
+                        <xsd:element name="metadataFormat" type="xsd:string" minOccurs="0" maxOccurs="1"  readOnly="false">
+                        </xsd:element>
+                    </xsd:sequence>
+                </xsd:complexType>
+            </xsd:element>
+            <xsd:element name="getMetadataOutput">
+                <xsd:complexType>
+                    <xsd:sequence>
+                        <xsd:element name="metadata" type="xsd:string" minOccurs="1" maxOccurs="1"  readOnly="false">
+                        </xsd:element>
+                    </xsd:sequence>
+                </xsd:complexType>
+            </xsd:element>
+            <xsd:element name="updateMergeDiretor">
+                <xsd:complexType/>
+            </xsd:element>
+            <xsd:element name="createAtor">
+                <xsd:complexType/>
+            </xsd:element>
+            <xsd:element name="getDependencies">
+                <xsd:complexType/>
+            </xsd:element>
+            <xsd:element name="getDependenciesOutput">
+                <xsd:complexType>
+                    <xsd:sequence>
+                        <!-- collection wrapper for dependencies -->
+                        <xsd:element name="dependencies" minOccurs="1" maxOccurs="1">
+                            <xsd:complexType>
+                                <xsd:sequence>
+                                    <xsd:element name="item" type="dependency" minOccurs="1" maxOccurs="unbounded"/>
+                                </xsd:sequence>
+                            </xsd:complexType>
+                        </xsd:element>
+                    </xsd:sequence>
+                </xsd:complexType>
+            </xsd:element>
+            <xsd:element name="updateMergeAtor">
+                <xsd:complexType/>
+            </xsd:element>
+            <xsd:element name="deleteDiretor">
+                <xsd:complexType>
+                    <xsd:sequence>
+                        <xsd:element name="id" type="xsd:uuid" minOccurs="1" maxOccurs="1"  readOnly="false">
+                        </xsd:element>
+                    </xsd:sequence>
+                </xsd:complexType>
+            </xsd:element>
+            <xsd:element name="importDiretor">
+                <xsd:complexType>
+                    <xsd:sequence>
+                        <xsd:element name="config" type="importConfig" minOccurs="1" maxOccurs="1"  readOnly="false">
+                        </xsd:element>
+                    </xsd:sequence>
+                </xsd:complexType>
+            </xsd:element>
+            <xsd:element name="importDiretorOutput">
+                <xsd:complexType>
+                    <xsd:sequence>
+                        <xsd:element name="importJobId" type="xsd:string" minOccurs="1" maxOccurs="1"  readOnly="false">
+                        </xsd:element>
+                    </xsd:sequence>
+                </xsd:complexType>
+            </xsd:element>
+            <xsd:element name="createFilme">
+                <xsd:complexType/>
+            </xsd:element>
+            <xsd:element name="updateAtor">
+                <xsd:complexType/>
+            </xsd:element>
+            <xsd:element name="retornaEstoque">
+                <xsd:complexType>
+                    <xsd:sequence>
+                        <xsd:element name="idPedido" type="xsd:string" minOccurs="1" maxOccurs="1"  readOnly="false">
+                        </xsd:element>
+                    </xsd:sequence>
+                </xsd:complexType>
+            </xsd:element>
+            <xsd:element name="retornaEstoqueOutput">
+                <xsd:complexType>
+                    <xsd:sequence>
+                        <xsd:element name="qtd" type="xsd:long" minOccurs="1" maxOccurs="1"  readOnly="false">
+                        </xsd:element>
+                        <xsd:element name="message" type="xsd:string" minOccurs="0" maxOccurs="1"  readOnly="false">
+                        </xsd:element>
+                    </xsd:sequence>
+                </xsd:complexType>
+            </xsd:element>
+            <xsd:element name="updateDiretor">
+                <xsd:complexType/>
+            </xsd:element>
+            <xsd:element name="exportFilme">
+                <xsd:complexType>
+                    <xsd:sequence>
+                        <xsd:element name="config" type="exportConfig" minOccurs="1" maxOccurs="1"  readOnly="false">
+                        </xsd:element>
+                    </xsd:sequence>
+                </xsd:complexType>
+            </xsd:element>
+            <xsd:element name="exportFilmeOutput">
+                <xsd:complexType>
+                    <xsd:sequence>
+                        <xsd:element name="exportJobId" type="xsd:string" minOccurs="1" maxOccurs="1"  readOnly="false">
+                        </xsd:element>
+                    </xsd:sequence>
+                </xsd:complexType>
+            </xsd:element>
+            <xsd:element name="updateFilme">
+                <xsd:complexType/>
+            </xsd:element>
+            <xsd:element name="retrieveFilme">
+                <xsd:complexType>
+                    <xsd:sequence>
+                        <xsd:element name="id" type="xsd:uuid" minOccurs="1" maxOccurs="1"  readOnly="false">
+                        </xsd:element>
+                    </xsd:sequence>
+                </xsd:complexType>
+            </xsd:element>
+            <xsd:element name="createBulkGenero">
+                <xsd:complexType>
+                    <xsd:sequence>
+                        <!-- collection wrapper for entities -->
+                        <xsd:element name="entities" minOccurs="1" maxOccurs="1">
+                            <xsd:complexType>
+                                <xsd:sequence>
+                                    <xsd:element name="item" type="genero" minOccurs="1" maxOccurs="unbounded"/>
+                                </xsd:sequence>
+                            </xsd:complexType>
+                        </xsd:element>
+                    </xsd:sequence>
+                </xsd:complexType>
+            </xsd:element>
+            <xsd:element name="createBulkGeneroOutput">
+                <xsd:complexType>
+                    <xsd:sequence>
+                    </xsd:sequence>
+                </xsd:complexType>
+            </xsd:element>
+            <xsd:element name="listAtor">
+                <xsd:complexType>
+                    <xsd:sequence>
+                        <xsd:element name="offset" type="xsd:long" minOccurs="1" maxOccurs="1"  readOnly="false">
+                        </xsd:element>
+                        <xsd:element name="size" type="xsd:long" minOccurs="1" maxOccurs="1"  readOnly="false">
+                        </xsd:element>
+                        <xsd:element name="orderBy" type="xsd:string" minOccurs="1" maxOccurs="1"  readOnly="false">
+                        </xsd:element>
+                        <xsd:element name="filter" type="xsd:string" minOccurs="1" maxOccurs="1"  readOnly="false">
+                        </xsd:element>
+                        <!-- collection wrapper for displayFields -->
+                        <xsd:element name="displayFields" minOccurs="1" maxOccurs="1">
+                            <xsd:complexType>
+                                <xsd:sequence>
+                                    <xsd:element name="item" type="xsd:string" minOccurs="1" maxOccurs="unbounded"/>
+                                </xsd:sequence>
+                            </xsd:complexType>
+                        </xsd:element>
+                    </xsd:sequence>
+                </xsd:complexType>
+            </xsd:element>
+            <xsd:element name="listAtorOutput">
+                <xsd:complexType>
+                    <xsd:sequence>
+                        <!-- collection wrapper for contents -->
+                        <xsd:element name="contents" minOccurs="1" maxOccurs="1">
+                            <xsd:complexType>
+                                <xsd:sequence>
+                                    <xsd:element name="item" type="ator" minOccurs="1" maxOccurs="unbounded"/>
+                                </xsd:sequence>
+                            </xsd:complexType>
+                        </xsd:element>
+                    </xsd:sequence>
+                </xsd:complexType>
+            </xsd:element>
+            <xsd:element name="createDiretor">
+                <xsd:complexType/>
+            </xsd:element>
+            <xsd:element name="updateMergeFilme">
+                <xsd:complexType/>
+            </xsd:element>
+            <xsd:element name="exportGenero">
+                <xsd:complexType>
+                    <xsd:sequence>
+                        <xsd:element name="config" type="exportConfig" minOccurs="1" maxOccurs="1"  readOnly="false">
+                        </xsd:element>
+                    </xsd:sequence>
+                </xsd:complexType>
+            </xsd:element>
+            <xsd:element name="exportGeneroOutput">
+                <xsd:complexType>
+                    <xsd:sequence>
+                        <xsd:element name="exportJobId" type="xsd:string" minOccurs="1" maxOccurs="1"  readOnly="false">
+                        </xsd:element>
+                    </xsd:sequence>
+                </xsd:complexType>
+            </xsd:element>
+            <xsd:element name="obterUrlUploadFoto">
+                <xsd:complexType>
+                    <xsd:sequence>
+                        <xsd:element name="id" type="xsd:string" minOccurs="0" maxOccurs="1"  readOnly="false">
+                        </xsd:element>
+                    </xsd:sequence>
+                </xsd:complexType>
+            </xsd:element>
+            <xsd:element name="obterUrlUploadFotoOutput">
+                <xsd:complexType>
+                    <xsd:sequence>
+                        <xsd:element name="id" type="xsd:string" minOccurs="1" maxOccurs="1"  readOnly="false">
+                        </xsd:element>
+                        <xsd:element name="version" type="xsd:string" minOccurs="1" maxOccurs="1"  readOnly="false">
+                        </xsd:element>
+                        <xsd:element name="url" type="xsd:string" minOccurs="1" maxOccurs="1"  readOnly="false">
+                        </xsd:element>
+                    </xsd:sequence>
+                </xsd:complexType>
+            </xsd:element>
+            <xsd:element name="helloWorld">
+                <xsd:complexType>
+                    <xsd:sequence>
+                        <xsd:element name="who" type="xsd:string" minOccurs="1" maxOccurs="1"  readOnly="false">
+                        </xsd:element>
+                    </xsd:sequence>
+                </xsd:complexType>
+            </xsd:element>
+            <xsd:element name="helloWorldOutput">
+                <xsd:complexType>
+                    <xsd:sequence>
+                        <xsd:element name="helloWorldMessage" type="xsd:string" minOccurs="1" maxOccurs="1"  readOnly="false">
+                        </xsd:element>
+                    </xsd:sequence>
+                </xsd:complexType>
+            </xsd:element>
+            <xsd:element name="deleteGenero">
+                <xsd:complexType>
+                    <xsd:sequence>
+                        <xsd:element name="id" type="xsd:uuid" minOccurs="1" maxOccurs="1"  readOnly="false">
+                        </xsd:element>
+                    </xsd:sequence>
+                </xsd:complexType>
+            </xsd:element>
+            <xsd:element name="importAtor">
+                <xsd:complexType>
+                    <xsd:sequence>
+                        <xsd:element name="config" type="importConfig" minOccurs="1" maxOccurs="1"  readOnly="false">
+                        </xsd:element>
+                    </xsd:sequence>
+                </xsd:complexType>
+            </xsd:element>
+            <xsd:element name="importAtorOutput">
+                <xsd:complexType>
+                    <xsd:sequence>
+                        <xsd:element name="importJobId" type="xsd:string" minOccurs="1" maxOccurs="1"  readOnly="false">
+                        </xsd:element>
+                    </xsd:sequence>
+                </xsd:complexType>
+            </xsd:element>
+        </xsd:schema>
+    </wsdl:types>
+    
+    <wsdl:message name="deleteAtorRequest">
+        <wsdl:part name="toDelete" element="deleteAtor"/>
+    </wsdl:message>
+    <wsdl:message name="createMergeGeneroRequest">
+        <wsdl:part name="parameters" element="createMergeGenero"/>
+    </wsdl:message>
+    <wsdl:message name="createMergeGeneroResponse">
+        <wsdl:part name="result" element="createMergeGeneroOutput"/>
+    </wsdl:message>
+    <wsdl:message name="createMergeAtorRequest">
+        <wsdl:part name="parameters" element="createMergeAtor"/>
+    </wsdl:message>
+    <wsdl:message name="createMergeAtorResponse">
+        <wsdl:part name="result" element="createMergeAtorOutput"/>
+    </wsdl:message>
+    <wsdl:message name="createGeneroRequest">
+        <wsdl:part name="toCreate" element="createGenero"/>
+    </wsdl:message>
+    <wsdl:message name="createGeneroResponse">
+        <wsdl:part name="created" element="createGeneroOutput"/>
+    </wsdl:message>
+    <wsdl:message name="importFilmeRequest">
+        <wsdl:part name="parameters" element="importFilme"/>
+    </wsdl:message>
+    <wsdl:message name="importFilmeResponse">
+        <wsdl:part name="result" element="importFilmeOutput"/>
+    </wsdl:message>
+    <wsdl:message name="retrieveGeneroRequest">
+        <wsdl:part name="toRetrieve" element="retrieveGenero"/>
+    </wsdl:message>
+    <wsdl:message name="retrieveGeneroResponse">
+        <wsdl:part name="retrieved" element="retrieveGeneroOutput"/>
+    </wsdl:message>
+    <wsdl:message name="importGeneroRequest">
+        <wsdl:part name="parameters" element="importGenero"/>
+    </wsdl:message>
+    <wsdl:message name="importGeneroResponse">
+        <wsdl:part name="result" element="importGeneroOutput"/>
+    </wsdl:message>
+    <wsdl:message name="createBulkAtorRequest">
+        <wsdl:part name="parameters" element="createBulkAtor"/>
+    </wsdl:message>
+    <wsdl:message name="createBulkAtorResponse">
+        <wsdl:part name="result" element="createBulkAtorOutput"/>
+    </wsdl:message>
+    <wsdl:message name="updateGeneroRequest">
+        <wsdl:part name="toUpdate" element="updateGenero"/>
+    </wsdl:message>
+    <wsdl:message name="updateGeneroResponse">
+        <wsdl:part name="updated" element="updateGeneroOutput"/>
+    </wsdl:message>
+    <wsdl:message name="retrieveDiretorRequest">
+        <wsdl:part name="toRetrieve" element="retrieveDiretor"/>
+    </wsdl:message>
+    <wsdl:message name="retrieveDiretorResponse">
+        <wsdl:part name="retrieved" element="retrieveDiretorOutput"/>
+    </wsdl:message>
+    <wsdl:message name="listGeneroRequest">
+        <wsdl:part name="pageRequest" element="listGenero"/>
+    </wsdl:message>
+    <wsdl:message name="listGeneroResponse">
+        <wsdl:part name="pagedResults" element="listGeneroOutput"/>
+    </wsdl:message>
+    <wsdl:message name="exportDiretorRequest">
+        <wsdl:part name="parameters" element="exportDiretor"/>
+    </wsdl:message>
+    <wsdl:message name="exportDiretorResponse">
+        <wsdl:part name="result" element="exportDiretorOutput"/>
+    </wsdl:message>
+    <wsdl:message name="getMetadataRequest">
+        <wsdl:part name="parameters" element="getMetadata"/>
+    </wsdl:message>
+    <wsdl:message name="getMetadataResponse">
+        <wsdl:part name="result" element="getMetadataOutput"/>
+    </wsdl:message>
+    <wsdl:message name="updateMergeDiretorRequest">
+        <wsdl:part name="parameters" element="updateMergeDiretor"/>
+    </wsdl:message>
+    <wsdl:message name="updateMergeDiretorResponse">
+        <wsdl:part name="result" element="updateMergeDiretorOutput"/>
+    </wsdl:message>
+    <wsdl:message name="updateMergeAtorRequest">
+        <wsdl:part name="parameters" element="updateMergeAtor"/>
+    </wsdl:message>
+    <wsdl:message name="updateMergeAtorResponse">
+        <wsdl:part name="result" element="updateMergeAtorOutput"/>
+    </wsdl:message>
+    <wsdl:message name="updateDiretorRequest">
+        <wsdl:part name="toUpdate" element="updateDiretor"/>
+    </wsdl:message>
+    <wsdl:message name="updateDiretorResponse">
+        <wsdl:part name="updated" element="updateDiretorOutput"/>
+    </wsdl:message>
+    <wsdl:message name="exportFilmeRequest">
+        <wsdl:part name="parameters" element="exportFilme"/>
+    </wsdl:message>
+    <wsdl:message name="exportFilmeResponse">
+        <wsdl:part name="result" element="exportFilmeOutput"/>
+    </wsdl:message>
+    <wsdl:message name="retrieveFilmeRequest">
+        <wsdl:part name="toRetrieve" element="retrieveFilme"/>
+    </wsdl:message>
+    <wsdl:message name="retrieveFilmeResponse">
+        <wsdl:part name="retrieved" element="retrieveFilmeOutput"/>
+    </wsdl:message>
+    <wsdl:message name="createBulkGeneroRequest">
+        <wsdl:part name="parameters" element="createBulkGenero"/>
+    </wsdl:message>
+    <wsdl:message name="createBulkGeneroResponse">
+        <wsdl:part name="result" element="createBulkGeneroOutput"/>
+    </wsdl:message>
+    <wsdl:message name="listAtorRequest">
+        <wsdl:part name="pageRequest" element="listAtor"/>
+    </wsdl:message>
+    <wsdl:message name="listAtorResponse">
+        <wsdl:part name="pagedResults" element="listAtorOutput"/>
+    </wsdl:message>
+    <wsdl:message name="createDiretorRequest">
+        <wsdl:part name="toCreate" element="createDiretor"/>
+    </wsdl:message>
+    <wsdl:message name="createDiretorResponse">
+        <wsdl:part name="created" element="createDiretorOutput"/>
+    </wsdl:message>
+    <wsdl:message name="updateMergeFilmeRequest">
+        <wsdl:part name="parameters" element="updateMergeFilme"/>
+    </wsdl:message>
+    <wsdl:message name="updateMergeFilmeResponse">
+        <wsdl:part name="result" element="updateMergeFilmeOutput"/>
+    </wsdl:message>
+    <wsdl:message name="obterUrlUploadFotoRequest">
+        <wsdl:part name="parameters" element="obterUrlUploadFoto"/>
+    </wsdl:message>
+    <wsdl:message name="obterUrlUploadFotoResponse">
+        <wsdl:part name="result" element="obterUrlUploadFotoOutput"/>
+    </wsdl:message>
+    <wsdl:message name="helloWorldRequest">
+        <wsdl:part name="parameters" element="helloWorld"/>
+    </wsdl:message>
+    <wsdl:message name="helloWorldResponse">
+        <wsdl:part name="result" element="helloWorldOutput"/>
+    </wsdl:message>
+    <wsdl:message name="importAtorRequest">
+        <wsdl:part name="parameters" element="importAtor"/>
+    </wsdl:message>
+    <wsdl:message name="importAtorResponse">
+        <wsdl:part name="result" element="importAtorOutput"/>
+    </wsdl:message>
+    <wsdl:message name="createMergeFilmeRequest">
+        <wsdl:part name="parameters" element="createMergeFilme"/>
+    </wsdl:message>
+    <wsdl:message name="createMergeFilmeResponse">
+        <wsdl:part name="result" element="createMergeFilmeOutput"/>
+    </wsdl:message>
+    <wsdl:message name="exportAtorRequest">
+        <wsdl:part name="parameters" element="exportAtor"/>
+    </wsdl:message>
+    <wsdl:message name="exportAtorResponse">
+        <wsdl:part name="result" element="exportAtorOutput"/>
+    </wsdl:message>
+    <wsdl:message name="listFilmeRequest">
+        <wsdl:part name="pageRequest" element="listFilme"/>
+    </wsdl:message>
+    <wsdl:message name="listFilmeResponse">
+        <wsdl:part name="pagedResults" element="listFilmeOutput"/>
+    </wsdl:message>
+    <wsdl:message name="listDiretorRequest">
+        <wsdl:part name="pageRequest" element="listDiretor"/>
+    </wsdl:message>
+    <wsdl:message name="listDiretorResponse">
+        <wsdl:part name="pagedResults" element="listDiretorOutput"/>
+    </wsdl:message>
+    <wsdl:message name="deleteFilmeRequest">
+        <wsdl:part name="toDelete" element="deleteFilme"/>
+    </wsdl:message>
+    <wsdl:message name="gravarFotoRequest">
+        <wsdl:part name="parameters" element="gravarFoto"/>
+    </wsdl:message>
+    <wsdl:message name="gravarFotoResponse">
+        <wsdl:part name="result" element="gravarFotoOutput"/>
+    </wsdl:message>
+    <wsdl:message name="createBulkDiretorRequest">
+        <wsdl:part name="parameters" element="createBulkDiretor"/>
+    </wsdl:message>
+    <wsdl:message name="createBulkDiretorResponse">
+        <wsdl:part name="result" element="createBulkDiretorOutput"/>
+    </wsdl:message>
+    <wsdl:message name="obterUrlDownloadFotoRequest">
+        <wsdl:part name="parameters" element="obterUrlDownloadFoto"/>
+    </wsdl:message>
+    <wsdl:message name="obterUrlDownloadFotoResponse">
+        <wsdl:part name="result" element="obterUrlDownloadFotoOutput"/>
+    </wsdl:message>
+    <wsdl:message name="createMergeDiretorRequest">
+        <wsdl:part name="parameters" element="createMergeDiretor"/>
+    </wsdl:message>
+    <wsdl:message name="createMergeDiretorResponse">
+        <wsdl:part name="result" element="createMergeDiretorOutput"/>
+    </wsdl:message>
+    <wsdl:message name="createBulkFilmeRequest">
+        <wsdl:part name="parameters" element="createBulkFilme"/>
+    </wsdl:message>
+    <wsdl:message name="createBulkFilmeResponse">
+        <wsdl:part name="result" element="createBulkFilmeOutput"/>
+    </wsdl:message>
+    <wsdl:message name="updateMergeGeneroRequest">
+        <wsdl:part name="parameters" element="updateMergeGenero"/>
+    </wsdl:message>
+    <wsdl:message name="updateMergeGeneroResponse">
+        <wsdl:part name="result" element="updateMergeGeneroOutput"/>
+    </wsdl:message>
+    <wsdl:message name="retrieveAtorRequest">
+        <wsdl:part name="toRetrieve" element="retrieveAtor"/>
+    </wsdl:message>
+    <wsdl:message name="retrieveAtorResponse">
+        <wsdl:part name="retrieved" element="retrieveAtorOutput"/>
+    </wsdl:message>
+    <wsdl:message name="createAtorRequest">
+        <wsdl:part name="toCreate" element="createAtor"/>
+    </wsdl:message>
+    <wsdl:message name="createAtorResponse">
+        <wsdl:part name="created" element="createAtorOutput"/>
+    </wsdl:message>
+    <wsdl:message name="getDependenciesRequest">
+        <wsdl:part name="parameters" element="getDependencies"/>
+    </wsdl:message>
+    <wsdl:message name="getDependenciesResponse">
+        <wsdl:part name="result" element="getDependenciesOutput"/>
+    </wsdl:message>
+    <wsdl:message name="deleteDiretorRequest">
+        <wsdl:part name="toDelete" element="deleteDiretor"/>
+    </wsdl:message>
+    <wsdl:message name="importDiretorRequest">
+        <wsdl:part name="parameters" element="importDiretor"/>
+    </wsdl:message>
+    <wsdl:message name="importDiretorResponse">
+        <wsdl:part name="result" element="importDiretorOutput"/>
+    </wsdl:message>
+    <wsdl:message name="createFilmeRequest">
+        <wsdl:part name="toCreate" element="createFilme"/>
+    </wsdl:message>
+    <wsdl:message name="createFilmeResponse">
+        <wsdl:part name="created" element="createFilmeOutput"/>
+    </wsdl:message>
+    <wsdl:message name="updateAtorRequest">
+        <wsdl:part name="toUpdate" element="updateAtor"/>
+    </wsdl:message>
+    <wsdl:message name="updateAtorResponse">
+        <wsdl:part name="updated" element="updateAtorOutput"/>
+    </wsdl:message>
+    <wsdl:message name="retornaEstoqueRequest">
+        <wsdl:part name="parameters" element="retornaEstoque"/>
+    </wsdl:message>
+    <wsdl:message name="retornaEstoqueResponse">
+        <wsdl:part name="result" element="retornaEstoqueOutput"/>
+    </wsdl:message>
+    <wsdl:message name="updateFilmeRequest">
+        <wsdl:part name="toUpdate" element="updateFilme"/>
+    </wsdl:message>
+    <wsdl:message name="updateFilmeResponse">
+        <wsdl:part name="updated" element="updateFilmeOutput"/>
+    </wsdl:message>
+    <wsdl:message name="exportGeneroRequest">
+        <wsdl:part name="parameters" element="exportGenero"/>
+    </wsdl:message>
+    <wsdl:message name="exportGeneroResponse">
+        <wsdl:part name="result" element="exportGeneroOutput"/>
+    </wsdl:message>
+    <wsdl:message name="deleteGeneroRequest">
+        <wsdl:part name="toDelete" element="deleteGenero"/>
+    </wsdl:message>
+    
+    <wsdl:portType name="basicoPortType">
+        <wsdl:operation name="deleteAtor">
+            <wsdl:documentation>
+            THIS OPERATION IS PUBLIC. 
+            The 'delete' request primitive for the Ator entity. 
+            </wsdl:documentation>
+            <wsdl:input message="deleteAtorRequest"/>
+            <wsdl:output message="deleteAtorResponse"/>
+        </wsdl:operation>
+        <wsdl:operation name="createMergeGenero">
+            <wsdl:documentation>
+            THIS OPERATION IS PUBLIC. 
+            The 'createMerge' request primitive for the Genero entity. 
+            </wsdl:documentation>
+            <wsdl:input message="createMergeGeneroRequest"/>
+            <wsdl:output message="createMergeGeneroResponse"/>
+        </wsdl:operation>
+        <wsdl:operation name="createMergeAtor">
+            <wsdl:documentation>
+            THIS OPERATION IS PUBLIC. 
+            The 'createMerge' request primitive for the Ator entity. 
+            </wsdl:documentation>
+            <wsdl:input message="createMergeAtorRequest"/>
+            <wsdl:output message="createMergeAtorResponse"/>
+        </wsdl:operation>
+        <wsdl:operation name="createGenero">
+            <wsdl:documentation>
+            THIS OPERATION IS PUBLIC. 
+            The 'create' request primitive for the Genero entity. 
+            </wsdl:documentation>
+            <wsdl:input message="createGeneroRequest"/>
+            <wsdl:output message="createGeneroResponse"/>
+        </wsdl:operation>
+        <wsdl:operation name="importFilme">
+            <wsdl:documentation>
+            THIS OPERATION IS PUBLIC. 
+            </wsdl:documentation>
+            <wsdl:input message="importFilmeRequest"/>
+            <wsdl:output message="importFilmeResponse"/>
+        </wsdl:operation>
+        <wsdl:operation name="retrieveGenero">
+            <wsdl:documentation>
+            THIS OPERATION IS PUBLIC. 
+            The 'retrieve' request primitive for the Genero entity. 
+            </wsdl:documentation>
+            <wsdl:input message="retrieveGeneroRequest"/>
+            <wsdl:output message="retrieveGeneroResponse"/>
+        </wsdl:operation>
+        <wsdl:operation name="importGenero">
+            <wsdl:documentation>
+            THIS OPERATION IS PUBLIC. 
+            </wsdl:documentation>
+            <wsdl:input message="importGeneroRequest"/>
+            <wsdl:output message="importGeneroResponse"/>
+        </wsdl:operation>
+        <wsdl:operation name="createBulkAtor">
+            <wsdl:documentation>
+            THIS OPERATION IS PUBLIC. 
+            The 'createBulk' request primitive for the Ator entity. 
+            </wsdl:documentation>
+            <wsdl:input message="createBulkAtorRequest"/>
+            <wsdl:output message="createBulkAtorResponse"/>
+        </wsdl:operation>
+        <wsdl:operation name="updateGenero">
+            <wsdl:documentation>
+            THIS OPERATION IS PUBLIC. 
+            The 'update' request primitive for the Genero entity. 
+            </wsdl:documentation>
+            <wsdl:input message="updateGeneroRequest"/>
+            <wsdl:output message="updateGeneroResponse"/>
+        </wsdl:operation>
+        <wsdl:operation name="retrieveDiretor">
+            <wsdl:documentation>
+            THIS OPERATION IS PUBLIC. 
+            The 'retrieve' request primitive for the Diretor entity. 
+            </wsdl:documentation>
+            <wsdl:input message="retrieveDiretorRequest"/>
+            <wsdl:output message="retrieveDiretorResponse"/>
+        </wsdl:operation>
+        <wsdl:operation name="listGenero">
+            <wsdl:documentation>
+            THIS OPERATION IS PUBLIC. 
+            The 'list' request primitive for the Genero entity. 
+            </wsdl:documentation>
+            <wsdl:input message="listGeneroRequest"/>
+            <wsdl:output message="listGeneroResponse"/>
+        </wsdl:operation>
+        <wsdl:operation name="exportDiretor">
+            <wsdl:documentation>
+            THIS OPERATION IS PUBLIC. 
+            </wsdl:documentation>
+            <wsdl:input message="exportDiretorRequest"/>
+            <wsdl:output message="exportDiretorResponse"/>
+        </wsdl:operation>
+        <wsdl:operation name="getMetadata">
+            <wsdl:documentation>
+            WARNING: THIS OPERATION IS PRIVATE AND MAY HAVE ITS BEHAVIOR CHANGED AT ANY TIME WITHOUT NOTICE. 
+            Default 'getMetadata' query. Every service must handle this command and return metadata in the format requested. 
+            </wsdl:documentation>
+            <wsdl:input message="getMetadataRequest"/>
+            <wsdl:output message="getMetadataResponse"/>
+        </wsdl:operation>
+        <wsdl:operation name="updateMergeDiretor">
+            <wsdl:documentation>
+            THIS OPERATION IS PUBLIC. 
+            The 'updateMerge' request primitive for the Diretor entity. 
+            </wsdl:documentation>
+            <wsdl:input message="updateMergeDiretorRequest"/>
+            <wsdl:output message="updateMergeDiretorResponse"/>
+        </wsdl:operation>
+        <wsdl:operation name="updateMergeAtor">
+            <wsdl:documentation>
+            THIS OPERATION IS PUBLIC. 
+            The 'updateMerge' request primitive for the Ator entity. 
+            </wsdl:documentation>
+            <wsdl:input message="updateMergeAtorRequest"/>
+            <wsdl:output message="updateMergeAtorResponse"/>
+        </wsdl:operation>
+        <wsdl:operation name="updateDiretor">
+            <wsdl:documentation>
+            THIS OPERATION IS PUBLIC. 
+            The 'update' request primitive for the Diretor entity. 
+            </wsdl:documentation>
+            <wsdl:input message="updateDiretorRequest"/>
+            <wsdl:output message="updateDiretorResponse"/>
+        </wsdl:operation>
+        <wsdl:operation name="exportFilme">
+            <wsdl:documentation>
+            THIS OPERATION IS PUBLIC. 
+            </wsdl:documentation>
+            <wsdl:input message="exportFilmeRequest"/>
+            <wsdl:output message="exportFilmeResponse"/>
+        </wsdl:operation>
+        <wsdl:operation name="retrieveFilme">
+            <wsdl:documentation>
+            THIS OPERATION IS PUBLIC. 
+            The 'retrieve' request primitive for the Filme entity. 
+            </wsdl:documentation>
+            <wsdl:input message="retrieveFilmeRequest"/>
+            <wsdl:output message="retrieveFilmeResponse"/>
+        </wsdl:operation>
+        <wsdl:operation name="createBulkGenero">
+            <wsdl:documentation>
+            THIS OPERATION IS PUBLIC. 
+            The 'createBulk' request primitive for the Genero entity. 
+            </wsdl:documentation>
+            <wsdl:input message="createBulkGeneroRequest"/>
+            <wsdl:output message="createBulkGeneroResponse"/>
+        </wsdl:operation>
+        <wsdl:operation name="listAtor">
+            <wsdl:documentation>
+            THIS OPERATION IS PUBLIC. 
+            The 'list' request primitive for the Ator entity. 
+            </wsdl:documentation>
+            <wsdl:input message="listAtorRequest"/>
+            <wsdl:output message="listAtorResponse"/>
+        </wsdl:operation>
+        <wsdl:operation name="createDiretor">
+            <wsdl:documentation>
+            THIS OPERATION IS PUBLIC. 
+            The 'create' request primitive for the Diretor entity. 
+            </wsdl:documentation>
+            <wsdl:input message="createDiretorRequest"/>
+            <wsdl:output message="createDiretorResponse"/>
+        </wsdl:operation>
+        <wsdl:operation name="updateMergeFilme">
+            <wsdl:documentation>
+            THIS OPERATION IS PUBLIC. 
+            The 'updateMerge' request primitive for the Filme entity. 
+            </wsdl:documentation>
+            <wsdl:input message="updateMergeFilmeRequest"/>
+            <wsdl:output message="updateMergeFilmeResponse"/>
+        </wsdl:operation>
+        <wsdl:operation name="obterUrlUploadFoto">
+            <wsdl:documentation>
+            WARNING: THIS OPERATION IS PRIVATE AND MAY HAVE ITS BEHAVIOR CHANGED AT ANY TIME WITHOUT NOTICE. 
+            Obtém a URL para upload da foto 
+            </wsdl:documentation>
+            <wsdl:input message="obterUrlUploadFotoRequest"/>
+            <wsdl:output message="obterUrlUploadFotoResponse"/>
+        </wsdl:operation>
+        <wsdl:operation name="helloWorld">
+            <wsdl:documentation>
+            WARNING: THIS OPERATION IS PRIVATE AND MAY HAVE ITS BEHAVIOR CHANGED AT ANY TIME WITHOUT NOTICE. 
+            </wsdl:documentation>
+            <wsdl:input message="helloWorldRequest"/>
+            <wsdl:output message="helloWorldResponse"/>
+        </wsdl:operation>
+        <wsdl:operation name="importAtor">
+            <wsdl:documentation>
+            THIS OPERATION IS PUBLIC. 
+            </wsdl:documentation>
+            <wsdl:input message="importAtorRequest"/>
+            <wsdl:output message="importAtorResponse"/>
+        </wsdl:operation>
+        <wsdl:operation name="createMergeFilme">
+            <wsdl:documentation>
+            THIS OPERATION IS PUBLIC. 
+            The 'createMerge' request primitive for the Filme entity. 
+            </wsdl:documentation>
+            <wsdl:input message="createMergeFilmeRequest"/>
+            <wsdl:output message="createMergeFilmeResponse"/>
+        </wsdl:operation>
+        <wsdl:operation name="exportAtor">
+            <wsdl:documentation>
+            THIS OPERATION IS PUBLIC. 
+            </wsdl:documentation>
+            <wsdl:input message="exportAtorRequest"/>
+            <wsdl:output message="exportAtorResponse"/>
+        </wsdl:operation>
+        <wsdl:operation name="listFilme">
+            <wsdl:documentation>
+            THIS OPERATION IS PUBLIC. 
+            The 'list' request primitive for the Filme entity. 
+            </wsdl:documentation>
+            <wsdl:input message="listFilmeRequest"/>
+            <wsdl:output message="listFilmeResponse"/>
+        </wsdl:operation>
+        <wsdl:operation name="listDiretor">
+            <wsdl:documentation>
+            THIS OPERATION IS PUBLIC. 
+            The 'list' request primitive for the Diretor entity. 
+            </wsdl:documentation>
+            <wsdl:input message="listDiretorRequest"/>
+            <wsdl:output message="listDiretorResponse"/>
+        </wsdl:operation>
+        <wsdl:operation name="deleteFilme">
+            <wsdl:documentation>
+            THIS OPERATION IS PUBLIC. 
+            The 'delete' request primitive for the Filme entity. 
+            </wsdl:documentation>
+            <wsdl:input message="deleteFilmeRequest"/>
+            <wsdl:output message="deleteFilmeResponse"/>
+        </wsdl:operation>
+        <wsdl:operation name="gravarFoto">
+            <wsdl:documentation>
+            WARNING: THIS OPERATION IS PRIVATE AND MAY HAVE ITS BEHAVIOR CHANGED AT ANY TIME WITHOUT NOTICE. 
+            Grava a foto que foi upada 
+            </wsdl:documentation>
+            <wsdl:input message="gravarFotoRequest"/>
+            <wsdl:output message="gravarFotoResponse"/>
+        </wsdl:operation>
+        <wsdl:operation name="createBulkDiretor">
+            <wsdl:documentation>
+            THIS OPERATION IS PUBLIC. 
+            The 'createBulk' request primitive for the Diretor entity. 
+            </wsdl:documentation>
+            <wsdl:input message="createBulkDiretorRequest"/>
+            <wsdl:output message="createBulkDiretorResponse"/>
+        </wsdl:operation>
+        <wsdl:operation name="obterUrlDownloadFoto">
+            <wsdl:documentation>
+            WARNING: THIS OPERATION IS PRIVATE AND MAY HAVE ITS BEHAVIOR CHANGED AT ANY TIME WITHOUT NOTICE. 
+            Obtém a URL para download da foto 
+            </wsdl:documentation>
+            <wsdl:input message="obterUrlDownloadFotoRequest"/>
+            <wsdl:output message="obterUrlDownloadFotoResponse"/>
+        </wsdl:operation>
+        <wsdl:operation name="createMergeDiretor">
+            <wsdl:documentation>
+            THIS OPERATION IS PUBLIC. 
+            The 'createMerge' request primitive for the Diretor entity. 
+            </wsdl:documentation>
+            <wsdl:input message="createMergeDiretorRequest"/>
+            <wsdl:output message="createMergeDiretorResponse"/>
+        </wsdl:operation>
+        <wsdl:operation name="createBulkFilme">
+            <wsdl:documentation>
+            THIS OPERATION IS PUBLIC. 
+            The 'createBulk' request primitive for the Filme entity. 
+            </wsdl:documentation>
+            <wsdl:input message="createBulkFilmeRequest"/>
+            <wsdl:output message="createBulkFilmeResponse"/>
+        </wsdl:operation>
+        <wsdl:operation name="updateMergeGenero">
+            <wsdl:documentation>
+            THIS OPERATION IS PUBLIC. 
+            The 'updateMerge' request primitive for the Genero entity. 
+            </wsdl:documentation>
+            <wsdl:input message="updateMergeGeneroRequest"/>
+            <wsdl:output message="updateMergeGeneroResponse"/>
+        </wsdl:operation>
+        <wsdl:operation name="retrieveAtor">
+            <wsdl:documentation>
+            THIS OPERATION IS PUBLIC. 
+            The 'retrieve' request primitive for the Ator entity. 
+            </wsdl:documentation>
+            <wsdl:input message="retrieveAtorRequest"/>
+            <wsdl:output message="retrieveAtorResponse"/>
+        </wsdl:operation>
+        <wsdl:operation name="createAtor">
+            <wsdl:documentation>
+            THIS OPERATION IS PUBLIC. 
+            The 'create' request primitive for the Ator entity. 
+            </wsdl:documentation>
+            <wsdl:input message="createAtorRequest"/>
+            <wsdl:output message="createAtorResponse"/>
+        </wsdl:operation>
+        <wsdl:operation name="getDependencies">
+            <wsdl:documentation>
+            THIS OPERATION IS PUBLIC. 
+            Returns a list with all dependencies from this service, along with their respective versions 
+            </wsdl:documentation>
+            <wsdl:input message="getDependenciesRequest"/>
+            <wsdl:output message="getDependenciesResponse"/>
+        </wsdl:operation>
+        <wsdl:operation name="deleteDiretor">
+            <wsdl:documentation>
+            THIS OPERATION IS PUBLIC. 
+            The 'delete' request primitive for the Diretor entity. 
+            </wsdl:documentation>
+            <wsdl:input message="deleteDiretorRequest"/>
+            <wsdl:output message="deleteDiretorResponse"/>
+        </wsdl:operation>
+        <wsdl:operation name="importDiretor">
+            <wsdl:documentation>
+            THIS OPERATION IS PUBLIC. 
+            </wsdl:documentation>
+            <wsdl:input message="importDiretorRequest"/>
+            <wsdl:output message="importDiretorResponse"/>
+        </wsdl:operation>
+        <wsdl:operation name="createFilme">
+            <wsdl:documentation>
+            THIS OPERATION IS PUBLIC. 
+            The 'create' request primitive for the Filme entity. 
+            </wsdl:documentation>
+            <wsdl:input message="createFilmeRequest"/>
+            <wsdl:output message="createFilmeResponse"/>
+        </wsdl:operation>
+        <wsdl:operation name="updateAtor">
+            <wsdl:documentation>
+            THIS OPERATION IS PUBLIC. 
+            The 'update' request primitive for the Ator entity. 
+            </wsdl:documentation>
+            <wsdl:input message="updateAtorRequest"/>
+            <wsdl:output message="updateAtorResponse"/>
+        </wsdl:operation>
+        <wsdl:operation name="retornaEstoque">
+            <wsdl:documentation>
+            WARNING: THIS OPERATION IS PRIVATE AND MAY HAVE ITS BEHAVIOR CHANGED AT ANY TIME WITHOUT NOTICE. 
+            Obtém a quantidade de itens no estoque de acordo com um pedido 
+            </wsdl:documentation>
+            <wsdl:input message="retornaEstoqueRequest"/>
+            <wsdl:output message="retornaEstoqueResponse"/>
+        </wsdl:operation>
+        <wsdl:operation name="updateFilme">
+            <wsdl:documentation>
+            THIS OPERATION IS PUBLIC. 
+            The 'update' request primitive for the Filme entity. 
+            </wsdl:documentation>
+            <wsdl:input message="updateFilmeRequest"/>
+            <wsdl:output message="updateFilmeResponse"/>
+        </wsdl:operation>
+        <wsdl:operation name="exportGenero">
+            <wsdl:documentation>
+            THIS OPERATION IS PUBLIC. 
+            </wsdl:documentation>
+            <wsdl:input message="exportGeneroRequest"/>
+            <wsdl:output message="exportGeneroResponse"/>
+        </wsdl:operation>
+        <wsdl:operation name="deleteGenero">
+            <wsdl:documentation>
+            THIS OPERATION IS PUBLIC. 
+            The 'delete' request primitive for the Genero entity. 
+            </wsdl:documentation>
+            <wsdl:input message="deleteGeneroRequest"/>
+            <wsdl:output message="deleteGeneroResponse"/>
+        </wsdl:operation>
+    </wsdl:portType>
+    
+    <wsdl:binding name="basicoSoapBinding" type="basicoPortType">
+        <soap:binding style="document" transport="http://schemas.xmlsoap.org/soap/http"/>
+        <wsdl:operation name="deleteAtor">
+            <soap:operation soapAction="deleteAtor"/>
+            <wsdl:input>
+                <soap:body use="literal"/>
+            </wsdl:input>
+            <wsdl:output>
+                <soap:body use="literal"/>
+            </wsdl:output>
+        </wsdl:operation>
+        <wsdl:operation name="createMergeGenero">
+            <soap:operation soapAction="createMergeGenero"/>
+            <wsdl:input>
+                <soap:body use="literal"/>
+            </wsdl:input>
+            <wsdl:output>
+                <soap:body use="literal"/>
+            </wsdl:output>
+        </wsdl:operation>
+        <wsdl:operation name="createMergeAtor">
+            <soap:operation soapAction="createMergeAtor"/>
+            <wsdl:input>
+                <soap:body use="literal"/>
+            </wsdl:input>
+            <wsdl:output>
+                <soap:body use="literal"/>
+            </wsdl:output>
+        </wsdl:operation>
+        <wsdl:operation name="createGenero">
+            <soap:operation soapAction="createGenero"/>
+            <wsdl:input>
+                <soap:body use="literal"/>
+            </wsdl:input>
+            <wsdl:output>
+                <soap:body use="literal"/>
+            </wsdl:output>
+        </wsdl:operation>
+        <wsdl:operation name="importFilme">
+            <soap:operation soapAction="importFilme"/>
+            <wsdl:input>
+                <soap:body use="literal"/>
+            </wsdl:input>
+            <wsdl:output>
+                <soap:body use="literal"/>
+            </wsdl:output>
+        </wsdl:operation>
+        <wsdl:operation name="retrieveGenero">
+            <soap:operation soapAction="retrieveGenero"/>
+            <wsdl:input>
+                <soap:body use="literal"/>
+            </wsdl:input>
+            <wsdl:output>
+                <soap:body use="literal"/>
+            </wsdl:output>
+        </wsdl:operation>
+        <wsdl:operation name="importGenero">
+            <soap:operation soapAction="importGenero"/>
+            <wsdl:input>
+                <soap:body use="literal"/>
+            </wsdl:input>
+            <wsdl:output>
+                <soap:body use="literal"/>
+            </wsdl:output>
+        </wsdl:operation>
+        <wsdl:operation name="createBulkAtor">
+            <soap:operation soapAction="createBulkAtor"/>
+            <wsdl:input>
+                <soap:body use="literal"/>
+            </wsdl:input>
+            <wsdl:output>
+                <soap:body use="literal"/>
+            </wsdl:output>
+        </wsdl:operation>
+        <wsdl:operation name="updateGenero">
+            <soap:operation soapAction="updateGenero"/>
+            <wsdl:input>
+                <soap:body use="literal"/>
+            </wsdl:input>
+            <wsdl:output>
+                <soap:body use="literal"/>
+            </wsdl:output>
+        </wsdl:operation>
+        <wsdl:operation name="retrieveDiretor">
+            <soap:operation soapAction="retrieveDiretor"/>
+            <wsdl:input>
+                <soap:body use="literal"/>
+            </wsdl:input>
+            <wsdl:output>
+                <soap:body use="literal"/>
+            </wsdl:output>
+        </wsdl:operation>
+        <wsdl:operation name="listGenero">
+            <soap:operation soapAction="listGenero"/>
+            <wsdl:input>
+                <soap:body use="literal"/>
+            </wsdl:input>
+            <wsdl:output>
+                <soap:body use="literal"/>
+            </wsdl:output>
+        </wsdl:operation>
+        <wsdl:operation name="exportDiretor">
+            <soap:operation soapAction="exportDiretor"/>
+            <wsdl:input>
+                <soap:body use="literal"/>
+            </wsdl:input>
+            <wsdl:output>
+                <soap:body use="literal"/>
+            </wsdl:output>
+        </wsdl:operation>
+        <wsdl:operation name="getMetadata">
+            <soap:operation soapAction="getMetadata"/>
+            <wsdl:input>
+                <soap:body use="literal"/>
+            </wsdl:input>
+            <wsdl:output>
+                <soap:body use="literal"/>
+            </wsdl:output>
+        </wsdl:operation>
+        <wsdl:operation name="updateMergeDiretor">
+            <soap:operation soapAction="updateMergeDiretor"/>
+            <wsdl:input>
+                <soap:body use="literal"/>
+            </wsdl:input>
+            <wsdl:output>
+                <soap:body use="literal"/>
+            </wsdl:output>
+        </wsdl:operation>
+        <wsdl:operation name="updateMergeAtor">
+            <soap:operation soapAction="updateMergeAtor"/>
+            <wsdl:input>
+                <soap:body use="literal"/>
+            </wsdl:input>
+            <wsdl:output>
+                <soap:body use="literal"/>
+            </wsdl:output>
+        </wsdl:operation>
+        <wsdl:operation name="updateDiretor">
+            <soap:operation soapAction="updateDiretor"/>
+            <wsdl:input>
+                <soap:body use="literal"/>
+            </wsdl:input>
+            <wsdl:output>
+                <soap:body use="literal"/>
+            </wsdl:output>
+        </wsdl:operation>
+        <wsdl:operation name="exportFilme">
+            <soap:operation soapAction="exportFilme"/>
+            <wsdl:input>
+                <soap:body use="literal"/>
+            </wsdl:input>
+            <wsdl:output>
+                <soap:body use="literal"/>
+            </wsdl:output>
+        </wsdl:operation>
+        <wsdl:operation name="retrieveFilme">
+            <soap:operation soapAction="retrieveFilme"/>
+            <wsdl:input>
+                <soap:body use="literal"/>
+            </wsdl:input>
+            <wsdl:output>
+                <soap:body use="literal"/>
+            </wsdl:output>
+        </wsdl:operation>
+        <wsdl:operation name="createBulkGenero">
+            <soap:operation soapAction="createBulkGenero"/>
+            <wsdl:input>
+                <soap:body use="literal"/>
+            </wsdl:input>
+            <wsdl:output>
+                <soap:body use="literal"/>
+            </wsdl:output>
+        </wsdl:operation>
+        <wsdl:operation name="listAtor">
+            <soap:operation soapAction="listAtor"/>
+            <wsdl:input>
+                <soap:body use="literal"/>
+            </wsdl:input>
+            <wsdl:output>
+                <soap:body use="literal"/>
+            </wsdl:output>
+        </wsdl:operation>
+        <wsdl:operation name="createDiretor">
+            <soap:operation soapAction="createDiretor"/>
+            <wsdl:input>
+                <soap:body use="literal"/>
+            </wsdl:input>
+            <wsdl:output>
+                <soap:body use="literal"/>
+            </wsdl:output>
+        </wsdl:operation>
+        <wsdl:operation name="updateMergeFilme">
+            <soap:operation soapAction="updateMergeFilme"/>
+            <wsdl:input>
+                <soap:body use="literal"/>
+            </wsdl:input>
+            <wsdl:output>
+                <soap:body use="literal"/>
+            </wsdl:output>
+        </wsdl:operation>
+        <wsdl:operation name="obterUrlUploadFoto">
+            <soap:operation soapAction="obterUrlUploadFoto"/>
+            <wsdl:input>
+                <soap:body use="literal"/>
+            </wsdl:input>
+            <wsdl:output>
+                <soap:body use="literal"/>
+            </wsdl:output>
+        </wsdl:operation>
+        <wsdl:operation name="helloWorld">
+            <soap:operation soapAction="helloWorld"/>
+            <wsdl:input>
+                <soap:body use="literal"/>
+            </wsdl:input>
+            <wsdl:output>
+                <soap:body use="literal"/>
+            </wsdl:output>
+        </wsdl:operation>
+        <wsdl:operation name="importAtor">
+            <soap:operation soapAction="importAtor"/>
+            <wsdl:input>
+                <soap:body use="literal"/>
+            </wsdl:input>
+            <wsdl:output>
+                <soap:body use="literal"/>
+            </wsdl:output>
+        </wsdl:operation>
+        <wsdl:operation name="createMergeFilme">
+            <soap:operation soapAction="createMergeFilme"/>
+            <wsdl:input>
+                <soap:body use="literal"/>
+            </wsdl:input>
+            <wsdl:output>
+                <soap:body use="literal"/>
+            </wsdl:output>
+        </wsdl:operation>
+        <wsdl:operation name="exportAtor">
+            <soap:operation soapAction="exportAtor"/>
+            <wsdl:input>
+                <soap:body use="literal"/>
+            </wsdl:input>
+            <wsdl:output>
+                <soap:body use="literal"/>
+            </wsdl:output>
+        </wsdl:operation>
+        <wsdl:operation name="listFilme">
+            <soap:operation soapAction="listFilme"/>
+            <wsdl:input>
+                <soap:body use="literal"/>
+            </wsdl:input>
+            <wsdl:output>
+                <soap:body use="literal"/>
+            </wsdl:output>
+        </wsdl:operation>
+        <wsdl:operation name="listDiretor">
+            <soap:operation soapAction="listDiretor"/>
+            <wsdl:input>
+                <soap:body use="literal"/>
+            </wsdl:input>
+            <wsdl:output>
+                <soap:body use="literal"/>
+            </wsdl:output>
+        </wsdl:operation>
+        <wsdl:operation name="deleteFilme">
+            <soap:operation soapAction="deleteFilme"/>
+            <wsdl:input>
+                <soap:body use="literal"/>
+            </wsdl:input>
+            <wsdl:output>
+                <soap:body use="literal"/>
+            </wsdl:output>
+        </wsdl:operation>
+        <wsdl:operation name="gravarFoto">
+            <soap:operation soapAction="gravarFoto"/>
+            <wsdl:input>
+                <soap:body use="literal"/>
+            </wsdl:input>
+            <wsdl:output>
+                <soap:body use="literal"/>
+            </wsdl:output>
+        </wsdl:operation>
+        <wsdl:operation name="createBulkDiretor">
+            <soap:operation soapAction="createBulkDiretor"/>
+            <wsdl:input>
+                <soap:body use="literal"/>
+            </wsdl:input>
+            <wsdl:output>
+                <soap:body use="literal"/>
+            </wsdl:output>
+        </wsdl:operation>
+        <wsdl:operation name="obterUrlDownloadFoto">
+            <soap:operation soapAction="obterUrlDownloadFoto"/>
+            <wsdl:input>
+                <soap:body use="literal"/>
+            </wsdl:input>
+            <wsdl:output>
+                <soap:body use="literal"/>
+            </wsdl:output>
+        </wsdl:operation>
+        <wsdl:operation name="createMergeDiretor">
+            <soap:operation soapAction="createMergeDiretor"/>
+            <wsdl:input>
+                <soap:body use="literal"/>
+            </wsdl:input>
+            <wsdl:output>
+                <soap:body use="literal"/>
+            </wsdl:output>
+        </wsdl:operation>
+        <wsdl:operation name="createBulkFilme">
+            <soap:operation soapAction="createBulkFilme"/>
+            <wsdl:input>
+                <soap:body use="literal"/>
+            </wsdl:input>
+            <wsdl:output>
+                <soap:body use="literal"/>
+            </wsdl:output>
+        </wsdl:operation>
+        <wsdl:operation name="updateMergeGenero">
+            <soap:operation soapAction="updateMergeGenero"/>
+            <wsdl:input>
+                <soap:body use="literal"/>
+            </wsdl:input>
+            <wsdl:output>
+                <soap:body use="literal"/>
+            </wsdl:output>
+        </wsdl:operation>
+        <wsdl:operation name="retrieveAtor">
+            <soap:operation soapAction="retrieveAtor"/>
+            <wsdl:input>
+                <soap:body use="literal"/>
+            </wsdl:input>
+            <wsdl:output>
+                <soap:body use="literal"/>
+            </wsdl:output>
+        </wsdl:operation>
+        <wsdl:operation name="createAtor">
+            <soap:operation soapAction="createAtor"/>
+            <wsdl:input>
+                <soap:body use="literal"/>
+            </wsdl:input>
+            <wsdl:output>
+                <soap:body use="literal"/>
+            </wsdl:output>
+        </wsdl:operation>
+        <wsdl:operation name="getDependencies">
+            <soap:operation soapAction="getDependencies"/>
+            <wsdl:input>
+                <soap:body use="literal"/>
+            </wsdl:input>
+            <wsdl:output>
+                <soap:body use="literal"/>
+            </wsdl:output>
+        </wsdl:operation>
+        <wsdl:operation name="deleteDiretor">
+            <soap:operation soapAction="deleteDiretor"/>
+            <wsdl:input>
+                <soap:body use="literal"/>
+            </wsdl:input>
+            <wsdl:output>
+                <soap:body use="literal"/>
+            </wsdl:output>
+        </wsdl:operation>
+        <wsdl:operation name="importDiretor">
+            <soap:operation soapAction="importDiretor"/>
+            <wsdl:input>
+                <soap:body use="literal"/>
+            </wsdl:input>
+            <wsdl:output>
+                <soap:body use="literal"/>
+            </wsdl:output>
+        </wsdl:operation>
+        <wsdl:operation name="createFilme">
+            <soap:operation soapAction="createFilme"/>
+            <wsdl:input>
+                <soap:body use="literal"/>
+            </wsdl:input>
+            <wsdl:output>
+                <soap:body use="literal"/>
+            </wsdl:output>
+        </wsdl:operation>
+        <wsdl:operation name="updateAtor">
+            <soap:operation soapAction="updateAtor"/>
+            <wsdl:input>
+                <soap:body use="literal"/>
+            </wsdl:input>
+            <wsdl:output>
+                <soap:body use="literal"/>
+            </wsdl:output>
+        </wsdl:operation>
+        <wsdl:operation name="retornaEstoque">
+            <soap:operation soapAction="retornaEstoque"/>
+            <wsdl:input>
+                <soap:body use="literal"/>
+            </wsdl:input>
+            <wsdl:output>
+                <soap:body use="literal"/>
+            </wsdl:output>
+        </wsdl:operation>
+        <wsdl:operation name="updateFilme">
+            <soap:operation soapAction="updateFilme"/>
+            <wsdl:input>
+                <soap:body use="literal"/>
+            </wsdl:input>
+            <wsdl:output>
+                <soap:body use="literal"/>
+            </wsdl:output>
+        </wsdl:operation>
+        <wsdl:operation name="exportGenero">
+            <soap:operation soapAction="exportGenero"/>
+            <wsdl:input>
+                <soap:body use="literal"/>
+            </wsdl:input>
+            <wsdl:output>
+                <soap:body use="literal"/>
+            </wsdl:output>
+        </wsdl:operation>
+        <wsdl:operation name="deleteGenero">
+            <soap:operation soapAction="deleteGenero"/>
+            <wsdl:input>
+                <soap:body use="literal"/>
+            </wsdl:input>
+            <wsdl:output>
+                <soap:body use="literal"/>
+            </wsdl:output>
+        </wsdl:operation>
+    </wsdl:binding>
+    
+    <wsdl:service name="basico">
+        <wsdl:documentation>
+        </wsdl:documentation>
+        <wsdl:port name="basicoPort" binding="basicoSoapBinding">
+            <soap:address location="${serviceURI}"/>
+        </wsdl:port>
+    </wsdl:service>
+</wsdl:definitions>

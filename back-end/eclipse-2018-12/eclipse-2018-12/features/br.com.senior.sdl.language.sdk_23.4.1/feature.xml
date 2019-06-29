@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<feature
+      id="br.com.senior.sdl.language.sdk"
+      label="SDL SDK Feature "
+      version="23.4.1"
+      >
+
+   <plugin
+         id="br.com.senior.sdl.model"
+         download-size="242"
+         install-size="566"
+         version="23.4.1"
+         unpack="false"/>
+
+   <plugin
+         id="br.com.senior.sdl.language"
+         download-size="1842"
+         install-size="4953"
+         version="23.4.1"
+         unpack="false"/>
+
+   <plugin
+         id="br.com.senior.sdl.language.ui"
+         download-size="145"
+         install-size="530"
+         version="23.4.1"
+         unpack="false"/>
+
+   <plugin
+         id="br.com.senior.sdl.language.ui.extras"
+         download-size="6"
+         install-size="8"
+         version="23.4.1"
+         unpack="false"/>
+
+</feature>

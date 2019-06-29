@@ -1,0 +1,742 @@
+{
+	"version": "develop-SNAPSHOT",
+	"edlVersion": "13.3.2",
+	"app": "furb-basico",
+	"domain": "furb",
+	"service": "basico",
+	"enumType": "ordinal",
+	"enumerations": {
+	},
+	"entities": {
+		"genero": {
+			"id": "id",
+			"name": "genero",
+			"customizable": false,
+			"slots": {
+				"id": {
+					"name": "id",
+					"type": "string",
+					"format": "uuid",
+					"optional": true,
+					"hidden": false,
+					"multivalued": false,
+					"readOnly": true
+				},
+				"nome": {
+					"name": "nome",
+					"type": "string",
+					"optional": false,
+					"hidden": false,
+					"multivalued": false,
+					"readOnly": false
+				},
+				"descricao": {
+					"name": "descricao",
+					"type": "string",
+					"optional": false,
+					"hidden": false,
+					"multivalued": false,
+					"readOnly": false
+				},
+				"filme": {
+					"name": "filme",
+					"type": "filme",
+					"optional": true,
+					"hidden": false,
+					"multivalued": false,
+					"readOnly": false
+				}
+			},
+			"lookup": {
+				"searchFields": [
+					{
+						"name": "id",
+						"optional": true,
+						"multiple": false
+					},
+					{
+						"name": "nome",
+						"optional": true,
+						"multiple": false
+					},
+					{
+						"name": "descricao",
+						"optional": true,
+						"multiple": false
+					}
+				],
+				"displayFields": [
+					"id",
+					"nome",
+					"descricao"
+				]
+			},
+			"advancedSearch": {
+				"searchFields": [
+					{
+						"name": "id",
+						"optional": true,
+						"multiple": false
+					},
+					{
+						"name": "nome",
+						"optional": true,
+						"multiple": false
+					},
+					{
+						"name": "descricao",
+						"optional": true,
+						"multiple": false
+					}
+				],
+				"displayFields": [
+					"id",
+					"nome",
+					"descricao"
+				]
+			},
+			"relationships": {
+				"filme": [
+					{
+						"type": "aggregation",
+						"attribute": "filme",
+						"ownerEntity": "genero",
+						"entityName": "filme",
+						"optional": true,
+						"filterDependent": false,
+						"multivalued": false,
+						"lookup": {
+							"searchFields": [
+								{
+									"name": "id",
+									"optional": true,
+									"multiple": false
+								},
+								{
+									"name": "descricao",
+									"optional": true,
+									"multiple": false
+								}
+							],
+							"displayFields": [
+								"id",
+								"descricao"
+							]
+						},
+						"advancedSearch": {
+							"searchFields": [
+								{
+									"name": "id",
+									"optional": true,
+									"multiple": false
+								},
+								{
+									"name": "descricao",
+									"optional": true,
+									"multiple": false
+								}
+							],
+							"displayFields": [
+								"id",
+								"descricao"
+							]
+						}
+					}
+				]
+			}
+		},
+		"diretor": {
+			"id": "id",
+			"name": "diretor",
+			"customizable": false,
+			"slots": {
+				"id": {
+					"name": "id",
+					"type": "string",
+					"format": "uuid",
+					"optional": true,
+					"hidden": false,
+					"multivalued": false,
+					"readOnly": true
+				},
+				"nome": {
+					"name": "nome",
+					"type": "string",
+					"optional": false,
+					"hidden": false,
+					"multivalued": false,
+					"readOnly": false
+				},
+				"idade": {
+					"name": "idade",
+					"type": "integer",
+					"optional": false,
+					"hidden": false,
+					"multivalued": false,
+					"readOnly": false
+				},
+				"descricao": {
+					"name": "descricao",
+					"type": "string",
+					"optional": false,
+					"hidden": false,
+					"multivalued": false,
+					"readOnly": false
+				},
+				"filmes": {
+					"name": "filmes",
+					"type": "filme",
+					"optional": true,
+					"hidden": false,
+					"multivalued": true,
+					"readOnly": false
+				}
+			},
+			"lookup": {
+				"searchFields": [
+					{
+						"name": "id",
+						"optional": true,
+						"multiple": false
+					},
+					{
+						"name": "nome",
+						"optional": true,
+						"multiple": false
+					},
+					{
+						"name": "idade",
+						"optional": true,
+						"multiple": false
+					},
+					{
+						"name": "descricao",
+						"optional": true,
+						"multiple": false
+					}
+				],
+				"displayFields": [
+					"id",
+					"nome",
+					"idade",
+					"descricao"
+				]
+			},
+			"advancedSearch": {
+				"searchFields": [
+					{
+						"name": "id",
+						"optional": true,
+						"multiple": false
+					},
+					{
+						"name": "nome",
+						"optional": true,
+						"multiple": false
+					},
+					{
+						"name": "idade",
+						"optional": true,
+						"multiple": false
+					},
+					{
+						"name": "descricao",
+						"optional": true,
+						"multiple": false
+					}
+				],
+				"displayFields": [
+					"id",
+					"nome",
+					"idade",
+					"descricao"
+				]
+			},
+			"relationships": {
+				"filme": [
+					{
+						"type": "aggregation",
+						"attribute": "filmes",
+						"ownerEntity": "diretor",
+						"entityName": "filme",
+						"optional": true,
+						"filterDependent": false,
+						"multivalued": true,
+						"lookup": {
+							"searchFields": [
+								{
+									"name": "id",
+									"optional": true,
+									"multiple": false
+								},
+								{
+									"name": "descricao",
+									"optional": true,
+									"multiple": false
+								}
+							],
+							"displayFields": [
+								"id",
+								"descricao"
+							]
+						},
+						"advancedSearch": {
+							"searchFields": [
+								{
+									"name": "id",
+									"optional": true,
+									"multiple": false
+								},
+								{
+									"name": "descricao",
+									"optional": true,
+									"multiple": false
+								}
+							],
+							"displayFields": [
+								"id",
+								"descricao"
+							]
+						}
+					}
+				]
+			}
+		},
+		"filme": {
+			"id": "id",
+			"name": "filme",
+			"customizable": false,
+			"slots": {
+				"id": {
+					"name": "id",
+					"type": "string",
+					"format": "uuid",
+					"optional": true,
+					"hidden": false,
+					"multivalued": false,
+					"readOnly": true
+				},
+				"descricao": {
+					"name": "descricao",
+					"type": "string",
+					"optional": false,
+					"hidden": false,
+					"multivalued": false,
+					"readOnly": false
+				},
+				"atores": {
+					"name": "atores",
+					"type": "ator",
+					"optional": true,
+					"hidden": false,
+					"multivalued": true,
+					"readOnly": false
+				},
+				"diretor": {
+					"name": "diretor",
+					"type": "diretor",
+					"optional": true,
+					"hidden": false,
+					"multivalued": false,
+					"readOnly": false
+				},
+				"generos": {
+					"name": "generos",
+					"type": "genero",
+					"optional": true,
+					"hidden": false,
+					"multivalued": true,
+					"readOnly": false
+				}
+			},
+			"lookup": {
+				"searchFields": [
+					{
+						"name": "id",
+						"optional": true,
+						"multiple": false
+					},
+					{
+						"name": "descricao",
+						"optional": true,
+						"multiple": false
+					}
+				],
+				"displayFields": [
+					"id",
+					"descricao"
+				]
+			},
+			"advancedSearch": {
+				"searchFields": [
+					{
+						"name": "id",
+						"optional": true,
+						"multiple": false
+					},
+					{
+						"name": "descricao",
+						"optional": true,
+						"multiple": false
+					}
+				],
+				"displayFields": [
+					"id",
+					"descricao"
+				]
+			},
+			"relationships": {
+				"diretor": [
+					{
+						"type": "aggregation",
+						"attribute": "diretor",
+						"ownerEntity": "filme",
+						"entityName": "diretor",
+						"optional": true,
+						"filterDependent": false,
+						"multivalued": false,
+						"lookup": {
+							"searchFields": [
+								{
+									"name": "id",
+									"optional": true,
+									"multiple": false
+								},
+								{
+									"name": "nome",
+									"optional": true,
+									"multiple": false
+								},
+								{
+									"name": "idade",
+									"optional": true,
+									"multiple": false
+								},
+								{
+									"name": "descricao",
+									"optional": true,
+									"multiple": false
+								}
+							],
+							"displayFields": [
+								"id",
+								"nome",
+								"idade",
+								"descricao"
+							]
+						},
+						"advancedSearch": {
+							"searchFields": [
+								{
+									"name": "id",
+									"optional": true,
+									"multiple": false
+								},
+								{
+									"name": "nome",
+									"optional": true,
+									"multiple": false
+								},
+								{
+									"name": "idade",
+									"optional": true,
+									"multiple": false
+								},
+								{
+									"name": "descricao",
+									"optional": true,
+									"multiple": false
+								}
+							],
+							"displayFields": [
+								"id",
+								"nome",
+								"idade",
+								"descricao"
+							]
+						}
+					}
+				]
+				,"genero": [
+					{
+						"type": "aggregation",
+						"attribute": "generos",
+						"ownerEntity": "filme",
+						"entityName": "genero",
+						"optional": true,
+						"filterDependent": false,
+						"multivalued": true,
+						"lookup": {
+							"searchFields": [
+								{
+									"name": "id",
+									"optional": true,
+									"multiple": false
+								},
+								{
+									"name": "nome",
+									"optional": true,
+									"multiple": false
+								},
+								{
+									"name": "descricao",
+									"optional": true,
+									"multiple": false
+								}
+							],
+							"displayFields": [
+								"id",
+								"nome",
+								"descricao"
+							]
+						},
+						"advancedSearch": {
+							"searchFields": [
+								{
+									"name": "id",
+									"optional": true,
+									"multiple": false
+								},
+								{
+									"name": "nome",
+									"optional": true,
+									"multiple": false
+								},
+								{
+									"name": "descricao",
+									"optional": true,
+									"multiple": false
+								}
+							],
+							"displayFields": [
+								"id",
+								"nome",
+								"descricao"
+							]
+						}
+					}
+				]
+				,"ator": [
+					{
+						"type": "aggregation",
+						"attribute": "atores",
+						"ownerEntity": "filme",
+						"entityName": "ator",
+						"optional": true,
+						"filterDependent": false,
+						"multivalued": true,
+						"lookup": {
+							"searchFields": [
+								{
+									"name": "id",
+									"optional": true,
+									"multiple": false
+								},
+								{
+									"name": "nome",
+									"optional": true,
+									"multiple": false
+								},
+								{
+									"name": "descricao",
+									"optional": true,
+									"multiple": false
+								}
+							],
+							"displayFields": [
+								"id",
+								"nome",
+								"descricao"
+							]
+						},
+						"advancedSearch": {
+							"searchFields": [
+								{
+									"name": "id",
+									"optional": true,
+									"multiple": false
+								},
+								{
+									"name": "nome",
+									"optional": true,
+									"multiple": false
+								},
+								{
+									"name": "descricao",
+									"optional": true,
+									"multiple": false
+								}
+							],
+							"displayFields": [
+								"id",
+								"nome",
+								"descricao"
+							]
+						}
+					}
+				]
+			}
+		},
+		"ator": {
+			"id": "id",
+			"name": "ator",
+			"customizable": false,
+			"slots": {
+				"id": {
+					"name": "id",
+					"type": "string",
+					"format": "uuid",
+					"optional": true,
+					"hidden": false,
+					"multivalued": false,
+					"readOnly": true
+				},
+				"nome": {
+					"name": "nome",
+					"type": "string",
+					"optional": false,
+					"hidden": false,
+					"multivalued": false,
+					"readOnly": false
+				},
+				"descricao": {
+					"name": "descricao",
+					"type": "string",
+					"optional": false,
+					"hidden": false,
+					"multivalued": false,
+					"readOnly": false
+				},
+				"filme": {
+					"name": "filme",
+					"type": "filme",
+					"optional": true,
+					"hidden": false,
+					"multivalued": false,
+					"readOnly": false
+				}
+			},
+			"lookup": {
+				"searchFields": [
+					{
+						"name": "id",
+						"optional": true,
+						"multiple": false
+					},
+					{
+						"name": "nome",
+						"optional": true,
+						"multiple": false
+					},
+					{
+						"name": "descricao",
+						"optional": true,
+						"multiple": false
+					}
+				],
+				"displayFields": [
+					"id",
+					"nome",
+					"descricao"
+				]
+			},
+			"advancedSearch": {
+				"searchFields": [
+					{
+						"name": "id",
+						"optional": true,
+						"multiple": false
+					},
+					{
+						"name": "nome",
+						"optional": true,
+						"multiple": false
+					},
+					{
+						"name": "descricao",
+						"optional": true,
+						"multiple": false
+					}
+				],
+				"displayFields": [
+					"id",
+					"nome",
+					"descricao"
+				]
+			},
+			"relationships": {
+				"filme": [
+					{
+						"type": "aggregation",
+						"attribute": "filme",
+						"ownerEntity": "ator",
+						"entityName": "filme",
+						"optional": true,
+						"filterDependent": false,
+						"multivalued": false,
+						"lookup": {
+							"searchFields": [
+								{
+									"name": "id",
+									"optional": true,
+									"multiple": false
+								},
+								{
+									"name": "descricao",
+									"optional": true,
+									"multiple": false
+								}
+							],
+							"displayFields": [
+								"id",
+								"descricao"
+							]
+						},
+						"advancedSearch": {
+							"searchFields": [
+								{
+									"name": "id",
+									"optional": true,
+									"multiple": false
+								},
+								{
+									"name": "descricao",
+									"optional": true,
+									"multiple": false
+								}
+							],
+							"displayFields": [
+								"id",
+								"descricao"
+							]
+						}
+					}
+				]
+			}
+		}
+	},
+	"translations": {
+		"furb.basico.genero": "",
+		"furb.basico.genero_id": "",
+		"furb.basico.genero_nome": "",
+		"furb.basico.genero_descricao": "",
+		"furb.basico.genero_filme": "",
+		"furb.basico.diretor": "",
+		"furb.basico.diretor_id": "",
+		"furb.basico.diretor_nome": "",
+		"furb.basico.diretor_idade": "",
+		"furb.basico.diretor_descricao": "",
+		"furb.basico.diretor_filmes": "",
+		"furb.basico.filme": "",
+		"furb.basico.filme_id": "",
+		"furb.basico.filme_descricao": "",
+		"furb.basico.filme_atores": "",
+		"furb.basico.filme_diretor": "",
+		"furb.basico.filme_generos": "",
+		"furb.basico.ator": "",
+		"furb.basico.ator_id": "",
+		"furb.basico.ator_nome": "",
+		"furb.basico.ator_descricao": "",
+		"furb.basico.ator_filme": ""
+	}
+}
