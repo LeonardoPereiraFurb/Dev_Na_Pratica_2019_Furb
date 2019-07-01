@@ -1,39 +1,40 @@
 import { Component, OnInit } from '@angular/core';
+import { ActivatedRoute } from '@angular/router';
+import { ServerService } from '../server.service';
+import { Item } from '../classes';
 
 @Component({
   selector: 'app-list',
   templateUrl: 'list.page.html',
   styleUrls: ['list.page.scss']
 })
+
+
 export class ListPage implements OnInit {
-  private selectedItem: any;
-  private icons = [
-    'flask',
-    'wifi',
-    'beer',
-    'football',
-    'basketball',
-    'paper-plane',
-    'american-football',
-    'boat',
-    'bluetooth',
-    'build'
-  ];
-  public items: Array<{ title: string; note: string; icon: string }> = [];
-  constructor() {
-    for (let i = 1; i < 11; i++) {
-      this.items.push({
-        title: 'Item ' + i,
-        note: 'This is item #' + i,
-        icon: this.icons[Math.floor(Math.random() * this.icons.length)]
-      });
-    }
+
+  titulo_lista = ''
+  public items: Array<Item> ;
+
+  constructor(public route: ActivatedRoute, public provider: ServerService) {
+    
   }
 
   ngOnInit() {
   }
-  // add back when alpha.4 is out
-  // navigate(item) {
-  //   this.router.navigate(['/list', JSON.stringify(item)]);
-  // }
+  ionViewDidEnter() {
+    let tipo = this.route.snapshot.paramMap.get('tipo')
+    console.log(tipo)
+    if (tipo == '0') {
+      this.titulo_lista = "Filmes"
+      this.provider.GetListaFilmes().then(filmes => {
+        console.log(filmes)
+        filmes.forEach(element => {
+          let item: Item;
+          item.id = element.id
+          item.titulo = element.descricao
+         this.items.push(item)
+        });
+      })
+    }
+  }
 }
