@@ -5,5 +5,15 @@
 </ion-header>
 
 <ion-content>
-
+  <ion-item>
+    <ion-label position="fixed">Nome:</ion-label>
+    <ion-input [(ngModel)]="genero.nome" #nome="ngModel" name="nome" value="{{genero.nome}}"></ion-input>
+  </ion-item>
+  <ion-item>
+    <ion-label position="fixed">Descrição:</ion-label>
+    <ion-input [(ngModel)]="genero.descricao" #descricao="ngModel" name="descricao" value="{{genero.descricao}}">
+    </ion-input>
+  </ion-item>
+  <ion-button (click)="salvar()">Salvar</ion-button>
+  <ion-button (click)="Excluir()">Excluir</ion-button>
 </ion-content>

@@ -1,4 +1,7 @@
 import { Component, OnInit } from '@angular/core';
+import { Diretor } from '../classes';
+import { ServerService } from '../server.service';
+import { ActivatedRoute } from '@angular/router';
 
 @Component({
   selector: 'app-diretor',
@@ -7,9 +10,17 @@ import { Component, OnInit } from '@angular/core';
 })
 export class DiretorPage implements OnInit {
 
-  constructor() { }
+  diretor: Diretor;
+  constructor(public provider: ServerService, public activatedRoute: ActivatedRoute) {
+    this.diretor = new Diretor();
+  }
 
   ngOnInit() {
   }
-
+  salvar(){
+    console.log(this.diretor)
+  }
+  Excluir(){
+    console.log(this.diretor)
+  }
 }

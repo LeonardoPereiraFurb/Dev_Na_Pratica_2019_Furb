@@ -5,5 +5,20 @@
 </ion-header>
 
 <ion-content>
+  <ion-item>
+    <ion-label position="fixed">Nome:</ion-label>
+    <ion-input [(ngModel)]="diretor.nome" #nome="ngModel" name="nome" value="{{diretor.nome}}"></ion-input>
+  </ion-item>
+  <ion-item>
+    <ion-label position="fixed">Descrição:</ion-label>
+    <ion-input [(ngModel)]="diretor.descricao" #descricao="ngModel" name="descricao" value="{{diretor.descricao}}">
+    </ion-input>
+  </ion-item>
+  <ion-item>
+    <ion-label position="fixed">Idade:</ion-label>
+    <ion-input type="number" [(ngModel)]="diretor.idade" #idade="ngModel" name="idade" value="{{diretor.idade}}"></ion-input>
+  </ion-item>
+  <ion-button (click)="salvar()">Salvar</ion-button>
+  <ion-button (click)="Excluir()">Excluir</ion-button>
 
 </ion-content>

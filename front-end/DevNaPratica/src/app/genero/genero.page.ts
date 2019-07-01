@@ -1,4 +1,7 @@
 import { Component, OnInit } from '@angular/core';
+import { ActivatedRoute } from '@angular/router';
+import { ServerService } from '../server.service';
+import { Genero } from '../classes';
 
 @Component({
   selector: 'app-genero',
@@ -7,9 +10,19 @@ import { Component, OnInit } from '@angular/core';
 })
 export class GeneroPage implements OnInit {
 
-  constructor() { }
+  genero: Genero;
+  constructor(public provider: ServerService, public activatedRoute: ActivatedRoute) {
+    this.genero = new Genero()
+  }
 
   ngOnInit() {
+  }
+
+  salvar(){
+    console.log(this.genero)
+  }
+  Excluir(){
+    console.log(this.genero)
   }
 
 }
