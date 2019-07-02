@@ -1,0 +1,49 @@
+domain furb
+
+entities {
+	generateExtraResources : true
+    securityType : secure
+	enumType : ordinal
+}
+
+
+
+service basico {
+	entities{
+        entity genero{
+            relationships{
+                ManyToOne(filme){
+                    type: aggregation
+                }
+            } 
+        }
+         entity ator{
+            relationships{
+                ManyToOne(filme){
+                    type: aggregation
+                }
+            }
+        }
+        entity diretor{
+         relationships{
+                OneToMany(filmes){
+                    type: aggregation
+                }
+            }   
+        }
+         entity filme{
+            relationships{
+                ManyToOne(diretor){
+                    type: aggregation
+                }
+                 OneToMany(generos){
+                    type: aggregation
+                }
+               OneToMany(atores){
+                    type: aggregation
+                }
+            }
+        }
+        
+    }//
+}

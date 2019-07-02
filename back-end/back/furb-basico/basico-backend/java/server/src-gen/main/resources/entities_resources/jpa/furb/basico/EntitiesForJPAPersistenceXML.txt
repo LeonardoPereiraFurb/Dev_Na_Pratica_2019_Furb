@@ -1,0 +1,8 @@
+<!-- GENERATED ENTITIES: 2019-07-01 21:59:04:661 -->
+<class>br.com.senior.furb.basico.GeneroEntity</class>
+<class>br.com.senior.furb.basico.DiretorEntity</class>
+<class>br.com.senior.furb.basico.Diretor_FilmesEntity</class>
+<class>br.com.senior.furb.basico.FilmeEntity</class>
+<class>br.com.senior.furb.basico.Filme_AtoresEntity</class>
+<class>br.com.senior.furb.basico.Filme_GenerosEntity</class>
+<class>br.com.senior.furb.basico.AtorEntity</class>

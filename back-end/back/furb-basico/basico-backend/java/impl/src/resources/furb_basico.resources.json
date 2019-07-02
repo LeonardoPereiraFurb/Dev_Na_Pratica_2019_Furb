@@ -1,0 +1,11 @@
+{
+  "domain": "hcm",
+  "service": "entry",
+  "description": "HCM - Lançamentos da folha de pagamento",
+  "resources": [
+  ],
+  "filterFields": [
+  ],
+  "customFilters": [
+  ]
+}

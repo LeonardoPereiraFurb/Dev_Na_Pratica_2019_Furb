@@ -1,0 +1,33 @@
+************************************** Dados do launch
+BROKER_HOST=18.212.187.105
+BROKER_PORT=5672
+BROKER_PASS=Senha1!
+BROKER_USER=admin
+
+TENANT=devnapraticaX (x = 02 - 35)
+VIRTUAL_HOST=devnapraticaX (x = 02 - 35)
+
+************************************** Dados para teste da API
+
+url de autenticação
+https://platform-homologx.senior.com.br/t/senior.com.br/bridge/1.0/rest/platform/authentication/actions/login
+
+{"username": "admin@devnapraticaX.com.br","password": "Senha1!"}
+
+-> (x = 02 - 35)
+
+url para testes
+https://platform-homologx.senior.com.br/t/senior.com.br/bridge/1.0/rest/
+
+url rabbit
+http://18.212.187.105:15672/
+admin/Senha1!
+
+url de testes
+https://platform-homologx.senior.com.br/tecnologia/platform/senior-x/#/
+
+************************************ Dados do repo
+
+url repo
+https://github.com/SeniorSA/furb
+

@@ -1,0 +1,167 @@
+{
+  "domain": "hcm",
+  "service": "entry",
+  "description": "HCM - Lançamentos da folha de pagamento",
+  "resources": [
+    {
+      "name": "AutocompleteEnum",
+      "label": "usuarios.userManager.hcm_entry_autocomplete_enum_label",
+      "description": "usuarios.userManager.hcm_entry_autocomplete_enum_description",
+      "URI": "res://senior.com.br/hcm/entry/autocomplete/enum",
+      "actions": [
+        {
+          "name": "Visualizar",
+          "label": "usuarios.userManager.hcm_entry_entities_action_visualizar_label"
+        }
+      ]
+    },
+    {
+      "name": "entry",
+      "label": "usuarios.userManager.hcm_entry_entities_entry_label",
+      "description": "usuarios.userManager.hcm_entry_entities_entry_description",
+      "URI": "res://senior.com.br/hcm/entry/entities/entry",
+      "actions": [
+        {
+          "name": "Incluir",
+          "label": "usuarios.userManager.hcm_entry_entities_entry_action_incluir_label"
+        },
+        {
+          "name": "Editar",
+          "label": "usuarios.userManager.hcm_entry_entities_entry_action_editar_label"
+        },
+        {
+          "name": "Excluir",
+          "label": "usuarios.userManager.hcm_entry_entities_entry_action_excluir_label"
+        },
+        {
+          "name": "Visualizar",
+          "label": "usuarios.userManager.hcm_entry_entities_entry_action_visualizar_label"
+        }
+      ]
+    },
+    {
+      "name": "entryItem",
+      "label": "usuarios.userManager.hcm_entry_entities_entryitem_label",
+      "description": "usuarios.userManager.hcm_entry_entities_entryitem_description",
+      "URI": "res://senior.com.br/hcm/entry/entities/entryItem",
+      "actions": [
+        {
+          "name": "Incluir",
+          "label": "usuarios.userManager.hcm_entry_entities_entryitem_action_incluir_label"
+        },
+        {
+          "name": "Editar",
+          "label": "usuarios.userManager.hcm_entry_entities_entryitem_action_editar_label"
+        },
+        {
+          "name": "Excluir",
+          "label": "usuarios.userManager.hcm_entry_entities_entryitem_action_excluir_label"
+        },
+        {
+          "name": "Visualizar",
+          "label": "usuarios.userManager.hcm_entry_entities_entryitem_action_visualizar_label"
+        }
+      ]
+    },
+    {
+      "name": "apportionment",
+      "label": "usuarios.userManager.hcm_entry_entities_apportionment_label",
+      "description": "usuarios.userManager.hcm_entry_entities_apportionment_description",
+      "URI": "res://senior.com.br/hcm/entry/entities/apportionment",
+      "actions": [
+        {
+          "name": "Incluir",
+          "label": "usuarios.userManager.hcm_entry_entities_apportionment_action_incluir_label"
+        },
+        {
+          "name": "Editar",
+          "label": "usuarios.userManager.hcm_entry_entities_apportionment_action_editar_label"
+        },
+        {
+          "name": "Excluir",
+          "label": "usuarios.userManager.hcm_entry_entities_apportionment_action_excluir_label"
+        },
+        {
+          "name": "Visualizar",
+          "label": "usuarios.userManager.hcm_entry_entities_apportionment_action_visualizar_label"
+        }
+      ]
+    },
+    {
+      "name": "apportionmentEntry",
+      "label": "usuarios.userManager.hcm_entry_entities_apportionmententry_label",
+      "description": "usuarios.userManager.hcm_entry_entities_apportionmententry_description",
+      "URI": "res://senior.com.br/hcm/entry/entities/apportionmentEntry",
+      "actions": [
+        {
+          "name": "Incluir",
+          "label": "usuarios.userManager.hcm_entry_entities_apportionmententry_action_incluir_label"
+        },
+        {
+          "name": "Editar",
+          "label": "usuarios.userManager.hcm_entry_entities_apportionmententry_action_editar_label"
+        },
+        {
+          "name": "Excluir",
+          "label": "usuarios.userManager.hcm_entry_entities_apportionmententry_action_excluir_label"
+        },
+        {
+          "name": "Visualizar",
+          "label": "usuarios.userManager.hcm_entry_entities_apportionmententry_action_visualizar_label"
+        }
+      ]
+    },
+    {
+      "name": "apportionmentEntryException",
+      "label": "usuarios.userManager.hcm_entry_entities_apportionmententryexception_label",
+      "description": "usuarios.userManager.hcm_entry_entities_apportionmententryexception_description",
+      "URI": "res://senior.com.br/hcm/entry/entities/apportionmentEntryException",
+      "actions": [
+        {
+          "name": "Incluir",
+          "label": "usuarios.userManager.hcm_entry_entities_apportionmententryexception_action_incluir_label"
+        },
+        {
+          "name": "Editar",
+          "label": "usuarios.userManager.hcm_entry_entities_apportionmententryexception_action_editar_label"
+        },
+        {
+          "name": "Excluir",
+          "label": "usuarios.userManager.hcm_entry_entities_apportionmententryexception_action_excluir_label"
+        },
+        {
+          "name": "Visualizar",
+          "label": "usuarios.userManager.hcm_entry_entities_apportionmententryexception_action_visualizar_label"
+        }
+      ]
+    },
+    {
+      "name": "entry13Salary",
+      "label": "usuarios.userManager.hcm_entry_entities_entry13salary_label",
+      "description": "usuarios.userManager.hcm_entry_entities_entry13salary_description",
+      "URI": "res://senior.com.br/hcm/entry/entities/entry13Salary",
+      "actions": [
+        {
+          "name": "Incluir",
+          "label": "usuarios.userManager.hcm_entry_entities_entry13salary_action_incluir_label"
+        },
+        {
+          "name": "Editar",
+          "label": "usuarios.userManager.hcm_entry_entities_entry13salary_action_editar_label"
+        },
+        {
+          "name": "Excluir",
+          "label": "usuarios.userManager.hcm_entry_entities_entry13salary_action_excluir_label"
+        },
+        {
+          "name": "Visualizar",
+          "label": "usuarios.userManager.hcm_entry_entities_entry13salary_action_visualizar_label"
+        }
+      ]
+    }
+  ],
+  "filterFields": [
+  ],
+  "customFilters": [
+  ]
+}
