@@ -32,7 +32,7 @@ export class DiretorPage implements OnInit {
   }
 
   salvar(){
-    this.provider.SalvarFilme(this.diretor).then(retonno => {
+    this.provider.SalvarDiretor(this.diretor).then(retonno => {
       alert("Diretor salvo com sucesso!")
       this.navCtrl.navigateForward("")
     }).catch(erro => {

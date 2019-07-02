@@ -31,7 +31,7 @@ export class AtorPage implements OnInit {
   }
 
   salvar() {
-    this.provider.SalvarFilme(this.ator).then(retonno => {
+    this.provider.SalvarAtor(this.ator).then(retonno => {
       alert("Ator salvo com sucesso!")
       this.navctrl.navigateForward("")
     }).catch(erro => {
