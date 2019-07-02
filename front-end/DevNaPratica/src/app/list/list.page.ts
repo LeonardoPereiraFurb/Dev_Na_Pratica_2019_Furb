@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { ServerService } from '../server.service';
 import { Item } from '../classes';
+import { NavController } from '@ionic/angular';
 
 @Component({
   selector: 'app-list',
@@ -14,8 +15,8 @@ export class ListPage implements OnInit {
 
   titulo_lista = ''
   public items: Array<Item>;
-
-  constructor(public route: ActivatedRoute, public provider: ServerService) {
+  tipo = ''
+  constructor(public route: ActivatedRoute, public provider: ServerService, public navctrl: NavController) {
     this.items = new Array<Item>();
   }
 
@@ -23,52 +24,65 @@ export class ListPage implements OnInit {
   }
 
   ionViewDidEnter() {
-    let tipo = this.route.snapshot.paramMap.get('tipo')
-    console.log(tipo)
-    if (tipo == '0') {
+    this.tipo = this.route.snapshot.paramMap.get('tipo')
+
+    if (this.tipo == '0') {
       this.titulo_lista = "Filmes"
       this.provider.GetListaFilmes().then(filmes => {
-        console.log(filmes)
+        console.log("filmes", filmes)
         filmes.forEach(element => {
-          let item: Item;
+          console.log("element", element.id)
+          let item = new Item();
           item.id = element.id
           item.titulo = element.descricao
           this.items.push(item)
         });
       })
-    } else if (tipo == '1') {
+    } else if (this.tipo == '1') {
       this.titulo_lista = "Atores"
       this.provider.GetListaAtores().then(atores => {
         console.log(atores)
         atores.forEach(element => {
-          let item: Item;
+          let item = new Item();
           item.id = element.id
           item.titulo = element.nome
           this.items.push(item)
         });
       })
-    } else if (tipo == '2') {
+    } else if (this.tipo == '2') {
       this.titulo_lista = "Diretores"
       this.provider.GetListadiretores().then(diretores => {
         console.log(diretores)
         diretores.forEach(element => {
-          let item: Item;
+          let item = new Item();
           item.id = element.id
           item.titulo = element.nome
           this.items.push(item)
         });
       })
-    } else if (tipo == '3') {
+    } else if (this.tipo == '3') {
       this.titulo_lista = "Generos"
-      this.provider.GetListadiretores().then(generos => {
+      this.provider.GetListaGeneros().then(generos => {
         console.log(generos)
         generos.forEach(element => {
-          let item: Item;
+          let item = new Item();
           item.id = element.id
           item.titulo = element.nome
           this.items.push(item)
         });
       })
+    }
+  }
+
+  ShowCadastro(id) {
+    if (this.tipo == '0') {
+      this.navctrl.navigateForward("filme/" + id)
+    } else if (this.tipo == '1') {
+      this.navctrl.navigateForward("ator/" + id)
+    } else if (this.tipo == '2') {
+      this.navctrl.navigateForward("diretor/" + id)
+    } else if (this.tipo == '3') {
+      this.navctrl.navigateForward("genero/" + id)
     }
   }
 }
